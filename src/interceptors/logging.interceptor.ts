@@ -3,7 +3,6 @@ import {
 	NestInterceptor,
 	ExecutionContext,
 	CallHandler,
-	Inject,
 } from '@nestjs/common';
 import { Logger } from 'src/logger';
 import { tap } from 'rxjs';
@@ -14,7 +13,7 @@ export interface Response<T> {
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
-	constructor(@Inject('LOGGER') private readonly logger: Logger) {}
+	private readonly logger = new Logger();
 	intercept(context: ExecutionContext, next: CallHandler) {
 		const request = context.switchToHttp().getRequest();
 		const response = context.switchToHttp().getResponse();

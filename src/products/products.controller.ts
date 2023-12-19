@@ -3,8 +3,6 @@ import {
 	Controller,
 	Delete,
 	Get,
-	HttpException,
-	HttpStatus,
 	Param,
 	ParseIntPipe,
 	Post,
@@ -18,7 +16,6 @@ import { Roles } from './products.decorator';
 import { ProductsGuard } from './products.guard';
 import { AuthenticatedGuard } from 'src/auth/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
-
 @Controller('products')
 @UseInterceptors(LoggerInterceptor)
 @UseGuards(AuthenticatedGuard, ProductsGuard)
@@ -32,11 +29,7 @@ export class ProductsController {
 	@Get(':id')
 	async getProductByID(@Param('id', ParseIntPipe) id: number) {
 		const product = await this.productservice.byid(id);
-		if (product) {
-			return product;
-		} else {
-			throw new HttpException('Product not found!', HttpStatus.BAD_REQUEST);
-		}
+		return product;
 	}
 	@Roles(['admin'])
 	@Post('create')

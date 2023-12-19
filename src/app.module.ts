@@ -5,14 +5,15 @@ import { Products } from './products/entities/Products';
 import { UsersModule } from './users/users.module';
 import { Users } from './users/entities/Users';
 import { AuthModule } from './auth/auth.module';
-import { Logger } from './logger';
 import { LoggerMiddelWare } from './middelware/logging.middelware';
+import { ConfigModule } from '@nestjs/config';
 @Module({
 	imports: [
+		ConfigModule.forRoot(),
 		TypeOrmModule.forRoot({
 			name: 'MongoDB',
 			type: 'mongodb',
-			url: 'mongodb+srv://ahmed123:Midomon1@cluster0.yglwi9c.mongodb.net/?retryWrites=true&w=majority',
+			url: process.env.MONGO_URI,
 			synchronize: false,
 			database: 'test',
 			entities: [Users],
@@ -20,11 +21,11 @@ import { LoggerMiddelWare } from './middelware/logging.middelware';
 		TypeOrmModule.forRoot({
 			name: 'PostgresQL',
 			type: 'postgres',
-			host: 'localhost',
-			port: 5432,
-			username: 'ahmed',
-			password: 'admin',
-			database: 'northwind',
+			host: process.env.DATABASE_HOST,
+			port: parseInt(process.env.DATABASE_PORT),
+			username: process.env.DATABASE_USER,
+			password: process.env.DATABASE_PASSWORD,
+			database: process.env.DATABASE_NAME,
 			synchronize: false,
 			entities: [Products],
 		}),
@@ -33,7 +34,6 @@ import { LoggerMiddelWare } from './middelware/logging.middelware';
 		AuthModule,
 	],
 	controllers: [],
-	providers: [Logger],
 })
 export class AppModule implements NestModule {
 	configure(consumer: MiddlewareConsumer) {

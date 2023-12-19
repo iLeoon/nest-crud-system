@@ -3,14 +3,13 @@ import {
 	ExceptionFilter,
 	ExecutionContext,
 	HttpException,
-	Inject,
 } from '@nestjs/common';
 
 import { Logger } from '../logger';
 
 @Catch(HttpException)
 export class LoggerFilter<T extends HttpException> implements ExceptionFilter {
-	constructor(@Inject('LOGGER') private readonly logger: Logger) {}
+	private readonly logger = new Logger();
 	catch(exception: T, context: ExecutionContext) {
 		const request = context.switchToHttp().getRequest();
 		const response = context.switchToHttp().getResponse();

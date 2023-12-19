@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
 	createProductDTO,
@@ -15,11 +15,25 @@ export class ProductsService {
 	) {}
 
 	allProducts(): Promise<Products[]> {
-		return this.productsRepo.find();
+		const products = this.productsRepo.find();
+		if (products) {
+			return products;
+		}
+		throw new HttpException(
+			'Error occured when fetching products',
+			HttpStatus.BAD_REQUEST,
+		);
 	}
 
 	async byid(id: number): Promise<Products> {
-		return await this.productsRepo.findOneBy({ product_id: id });
+		const product = await this.productsRepo.findOneBy({ product_id: id });
+		if (product) {
+			return product;
+		}
+		throw new HttpException(
+			'Error occured when fetching product',
+			HttpStatus.BAD_REQUEST,
+		);
 	}
 
 	createProduct(data: createProductDTO): Promise<createProductDTO> {

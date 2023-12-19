@@ -11,6 +11,6 @@ export class AuthService {
 		if (user && matched) {
 			return user;
 		}
-		throw new UnauthorizedException('Invalid email or password');
+		throw new UnauthorizedException('Invalid password');
 	}
 }

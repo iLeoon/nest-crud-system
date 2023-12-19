@@ -19,12 +19,38 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+
+
+
+## Table of Content
+
+  - [1. Description](#1-description)
+  - [2. Libraries & Usages](#2-libraries--usages)
+  - [3. Installation](#3-installation)
+
+
 
 ## Description
+A [NestJS](https://nestjs.com/) CRUD system that contains authenication - authorization - logging with the implementation of middelwares - interceptors - filters  and more..
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Libraries & Usages
+
+| libraries | usage
+| :---:   | :---: |
+     [pg](https://www.npmjs.com/package/pg)    | PostgresSQL Database for CRUD Operations       |
+| [Mongodb](https://www.npmjs.com/package/mongodb) | MongoDB for persisting user's data and sessions  |
+| [TypeORM](https://typeorm.io/) | The ORM used for the project   |
+| [passport](https://www.passportjs.org/) | For Authentication |
+| [passport-local](https://www.passportjs.org/packages/passport-local/) | The passport's strategy | |  |
+|[express-sessions](https://www.npmjs.com/package/express-session)  | For handling the sessions |
+|[connect-mongo](https://www.npmjs.com/package/connect-mongo) | A session's store library for MongoDB |
+| [winston](https://www.npmjs.com/package/winston) | For Logging Exceptions - Requests - Responses | |  |  |  |
+| [bycrypt](https://www.npmjs.com/package/bcrypt) | For Hashing user's passwords |
+
+
+
 
 ## Installation
 
@@ -44,30 +70,3 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

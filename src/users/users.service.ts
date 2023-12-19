@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+	BadRequestException,
+	HttpException,
+	HttpStatus,
+	Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/Users';
 import { Repository } from 'typeorm';
@@ -12,11 +17,19 @@ export class UsersService {
 	) {}
 
 	async getUsers() {
-		return await this.mongodb.find();
+		const users = await this.mongodb.find();
+		if (users) {
+			return users;
+		}
+		throw new HttpException('Error', HttpStatus.BAD_REQUEST);
 	}
 
 	async getUserByEmail(email: string) {
-		return await this.mongodb.findOneBy({ email });
+		const user = await this.mongodb.findOneBy({ email });
+		if (user) {
+			return user;
+		}
+		throw new BadRequestException('No email was found');
 	}
 
 	async createUser(userData: UserDTO) {
