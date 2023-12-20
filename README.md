@@ -40,14 +40,14 @@ A [NestJS](https://nestjs.com/) CRUD system that contains authenication - author
 
 | libraries | usage
 | :---:   | :---: |
-     [pg](https://www.npmjs.com/package/pg)    | PostgresSQL Database for CRUD Operations       |
-| [Mongodb](https://www.npmjs.com/package/mongodb) | MongoDB for persisting user's data and sessions  |
-| [TypeORM](https://typeorm.io/) | The ORM used for the project   |
+ [pg](https://www.npmjs.com/package/pg) | PostgresSQL Database for CRUD Operations|
+| [Mongodb](https://www.npmjs.com/package/mongodb) | MongoDB for persisting user's data and sessions|
+| [TypeORM](https://typeorm.io/) | The ORM used for the project|
 | [passport](https://www.passportjs.org/) | For Authentication |
-| [passport-local](https://www.passportjs.org/packages/passport-local/) | The passport's strategy | |  |
+| [passport-local](https://www.passportjs.org/packages/passport-local/) | The passport's strategy |
 |[express-sessions](https://www.npmjs.com/package/express-session)  | For handling the sessions |
 |[connect-mongo](https://www.npmjs.com/package/connect-mongo) | A session's store library for MongoDB |
-| [winston](https://www.npmjs.com/package/winston) | For Logging Exceptions - Requests - Responses | |  |  |  |
+| [winston](https://www.npmjs.com/package/winston) | For Logging Exceptions - Requests - Responses |
 | [bycrypt](https://www.npmjs.com/package/bcrypt) | For Hashing user's passwords |
 
 
