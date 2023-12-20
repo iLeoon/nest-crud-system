@@ -51,13 +51,6 @@ A [NestJS](https://nestjs.com/) CRUD system that contains authenication - author
 | [bycrypt](https://www.npmjs.com/package/bcrypt) | For Hashing user's passwords |
 
 
-
-## Installation
-
-```bash
-$ yarn install
-```
-
 <a name="running"></a>
 ## Running the app
 
