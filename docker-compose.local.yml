@@ -20,9 +20,9 @@ services:
     image: mongo:latest
     restart: unless-stopped
     environment:
-        MONGO_INITDB_ROOT_USERNAME: ahmed
-        MONGO_INITDB_ROOT_PASSWORD: admin
-        MONGO_INITDB_DATABASE: test
+        MONGO_INITDB_ROOT_USERNAME: ""
+        MONGO_INITDB_ROOT_PASSWORD: ""
+        MONGO_INITDB_DATABASE: ""
     ports:
         - 27017:27017
     volumes:
