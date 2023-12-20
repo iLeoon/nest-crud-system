@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  postgres:
+      build: ./Docker/postgres
+      environment:
+        POSTGRES_USER: ""
+        POSTGRES_PASSWORD: ""
+        POSTGRES_DB: ""
+      ports:
+        - "5432:5432"
+      restart: unless-stopped
+      volumes:
+        - your/path:/var/lib/postgresql/data
+      healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+        interval: 10s
+        timeout: 5s
+  mongodb: 
+    image: mongo:latest
+    restart: unless-stopped
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: ahmed
+        MONGO_INITDB_ROOT_PASSWORD: admin
+        MONGO_INITDB_DATABASE: test
+    ports:
+        - 27017:27017
+    volumes:
+        - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
