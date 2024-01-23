@@ -7,7 +7,7 @@ import MongoStore from 'connect-mongo';
 import sessionConfig from './sessions/sessions.config';
 import { LoggerFilter } from './exceptions/logging.filter';
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.create(AppModule, { cors: true });
 	app.use(
 		session({
 			name: 'nest-session',

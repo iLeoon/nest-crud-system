@@ -24,9 +24,6 @@ export class LoggerInterceptor implements NestInterceptor {
 			Request: `Handler: ${handlerName} Class: ${className} url: ${url} method: ${method}`,
 			Response: `status: ${response.statusCode}`,
 		};
-		// if (request.isAuthenticated()) {
-		// 	this.logger.Log.info('Interceptor Request %j', requestObj);
-		// }
 
 		return next.handle().pipe(
 			tap(() => {

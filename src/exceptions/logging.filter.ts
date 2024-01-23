@@ -14,7 +14,8 @@ export class LoggerFilter<T extends HttpException> implements ExceptionFilter {
 		const request = context.switchToHttp().getRequest();
 		const response = context.switchToHttp().getResponse();
 		const status = exception.getStatus();
-		const errMessage = exception['response']['message'];
+		const errMessage =
+			exception['response']['message'] || exception['response'];
 		const exceptionObj = {
 			exception: exception.name,
 			status: exception.getStatus(),
