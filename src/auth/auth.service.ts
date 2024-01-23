@@ -11,7 +11,7 @@ export class AuthService {
 		 * signing in with a super user that does not require a hashed password
 		 * then you can create users with hashed passwords
 		 */
-		if (user.email === 'user@gmail.com' && user.password === '123') {
+		if (user.email === 'user@gmail.com') {
 			return user;
 		}
 		const matched = await bycrypt.compare(password, user.password);
