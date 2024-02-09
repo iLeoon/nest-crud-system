@@ -1,19 +1,19 @@
-import { Column, Entity, ObjectId, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 
-@Entity({ name: "users" })
+@Entity({ name: 'users' })
 export class Users {
-  @ObjectIdColumn()
-  _id: ObjectId;
+	@ObjectIdColumn()
+	_id: ObjectId;
 
-  @Column()
-  email: string;
+	@Column()
+	email: string;
 
-  @Column()
-  password: string;
+	@Column()
+	password: string;
 
-  @Column()
-  name: string;
+	@Column()
+	name: string;
 
-  @Column()
-  roles: string[];
+	@Column()
+	roles: string[];
 }
