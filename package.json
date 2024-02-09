@@ -1,0 +1,16 @@
+{
+	"name": "crud-system",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"update": "yarn upgrade-interactive"
+	},
+	"keywords": [],
+	"author": "iLeon",
+	"license": "MIT",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"packageManager": "^yarn@4.0.2"
+}
