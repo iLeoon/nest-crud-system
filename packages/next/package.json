@@ -2,6 +2,8 @@
   "name": "crud-system",
   "version": "0.1.0",
   "private": true,
+  "license":"MIT",
+  "author": "iLeon",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
