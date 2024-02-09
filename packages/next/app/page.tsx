@@ -8,11 +8,11 @@ export default function ButtonUsage() {
   return (
     <>
       <Header />
-      <div className='container mx-auto'>
+      <div className="container mx-auto">
         <CreateButton />
         <ProductsTable />
       </div>
-      
+
     </>
   );
 }

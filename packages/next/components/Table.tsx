@@ -37,7 +37,13 @@ function createData(
   carbs: number,
   protein: number,
 ) {
-  return { name, calories, fat, carbs, protein };
+  return {
+    name,
+    calories,
+    fat,
+    carbs,
+    protein,
+  };
 }
 
 const rows = [
