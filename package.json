@@ -6,7 +6,7 @@
 		"update": "yarn upgrade-interactive"
 	},
 	"keywords": [],
-	"author": "iLeon",
+	"author": "iLeon<ahmedeihab240@gmail.com>",
 	"license": "MIT",
 	"private": true,
 	"workspaces": [
