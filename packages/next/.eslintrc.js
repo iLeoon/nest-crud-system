@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     "linebreak-style": 0,
     "import/extensions": ["error", "never"],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": ["error", "never"]
   },
 };
