@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Header from '@/components/Header';
 import ProductsTable from '@/components/Table';
 import CreateButton from '@/components/Buttons/CreateButton';
 
-export default function ButtonUsage() {
+export default function HomePage() {
   return (
     <>
       <Header />
@@ -12,7 +11,6 @@ export default function ButtonUsage() {
         <CreateButton />
         <ProductsTable />
       </div>
-
     </>
   );
 }
