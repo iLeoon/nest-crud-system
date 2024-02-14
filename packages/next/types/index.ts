@@ -1,4 +1,6 @@
-export interface User {
+export type User = {
   email: string;
-  password: string;
-}
+  name: string;
+  roles: string[];
+};
+export type credentialsUser = Pick<User, 'email'> & { password: string };

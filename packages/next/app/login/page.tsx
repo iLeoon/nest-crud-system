@@ -6,9 +6,5 @@ import Login from '@/components/Login';
 import { Aligning } from '@/styles/pages/loginpage';
 
 export default function AuthPage() {
-  return (
-    <Aligning>
-      <Login />
-    </Aligning>
-  );
+   return <Login />;
 }

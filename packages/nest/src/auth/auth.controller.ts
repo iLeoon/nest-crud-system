@@ -15,6 +15,7 @@ export class AuthController {
 	@Post('login')
 	login(@Request() req) {
 		const user = req.user;
-		return user;
+		const { name, email, roles } = user;
+		return { name, email, roles };
 	}
 }

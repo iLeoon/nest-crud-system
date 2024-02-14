@@ -14,6 +14,13 @@ module.exports = {
     "linebreak-style": 0,
     "import/extensions": ["error", "never"],
     "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", "never"]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "default",
+        "format": ["camelCase", "PascalCase"]
+      }
+    ]
   },
 };
