@@ -4,7 +4,7 @@ import { Logger } from 'src/logger';
 
 @Injectable()
 export class LoggerMiddelWare implements NestMiddleware {
-	private logger = new Logger();
+	private readonly logger = new Logger();
 	use(req: Request, res: Response, next: NextFunction) {
 		const { method, originalUrl } = req;
 		const userAgent = req.get('user-agent') || '';

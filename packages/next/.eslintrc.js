@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     "linebreak-style": 0,
     "import/extensions": ["error", "never"],
+    "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }],
     "@typescript-eslint/naming-convention": [
