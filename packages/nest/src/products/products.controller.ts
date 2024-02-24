@@ -18,7 +18,7 @@ import { AuthenticatedGuard } from 'src/auth/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
 @Controller('products')
 @UseInterceptors(LoggerInterceptor)
-@UseGuards(AuthenticatedGuard, ProductsGuard)
+@UseGuards(AuthenticatedGuard)
 export class ProductsController {
 	constructor(private productservice: ProductsService) {}
 	@Roles(['admin'])

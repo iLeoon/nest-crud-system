@@ -2,7 +2,7 @@
 
 'use client';
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +15,9 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { useRouter } from 'next/navigation';
+import { User } from '@/types';
+import { authenticatedUser, signOut } from '@/api/auth/auth';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,8 +60,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const router = useRouter();
+  const [user, setUser] = useState<User>();
+  useEffect(() => {
+    authenticatedUser().then((data) => {
+      setUser(data);
+    });
+  }, []);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+    React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -97,9 +108,16 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{user?.name}</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+      <MenuItem
+        onClick={async () => {
+          await signOut();
+          router.push('/login');
+        }}
+      >
+        Sign Out
+      </MenuItem>
     </Menu>
   );
 
@@ -134,7 +152,6 @@ export default function Header() {
       </MenuItem>
     </Menu>
   );
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

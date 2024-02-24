@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Header from '@/components/Header';
-import ProductsTable from '@/components/Table';
 import CreateButton from '@/components/Buttons/CreateButton';
+import Header from '@/components/Header';
+import Products from '@/components/Products';
 
 export default function HomePage() {
   return (
@@ -9,7 +9,7 @@ export default function HomePage() {
       <Header />
       <div className="container mx-auto">
         <CreateButton />
-        <ProductsTable />
+        <Products />
       </div>
     </>
   );

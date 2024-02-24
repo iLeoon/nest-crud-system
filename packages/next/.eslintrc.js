@@ -20,8 +20,10 @@ module.exports = {
       "error",
       {
         "selector": "default",
-        "format": ["camelCase", "PascalCase"]
+        "format": ["camelCase", "PascalCase", "snake_case"]
       }
-    ]
+    ],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "error"
   },
 };
