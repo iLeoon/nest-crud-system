@@ -1,14 +1,13 @@
 import React from 'react';
 import ProductsTable from './Table';
 import apiFetch from '@/api/config';
-import { getCookie } from '@/api/cookie';
 
 export default async function Products() {
   const products = await apiFetch.get('/products', {
-    headers: {
-      Authorization: getCookie(),
-    },
+    withCredentials: true,
   });
+  console.log(products);
+  return products.data;
 
-  return <ProductsTable products={products.data} />;
+  // return <ProductsTable products={products.data} />;
 }

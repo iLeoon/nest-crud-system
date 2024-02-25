@@ -2,7 +2,7 @@
 
 'use client';
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,6 +12,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Product } from '@/types';
+import Products from './Products';
+import { getProduct } from '@/api/products/getProducts';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,7 +35,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ProductsTable({ products }: { products: Product[] }) {
+export default function ProductsTable() {
+  const [products, setProducts] = useState<Product[]>();
+
+  useEffect(() => {
+    Products()
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -47,7 +60,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product) => (
+          {products?.map((product) => (
             <StyledTableRow key={product.product_id}>
               <StyledTableCell align="right">
                 {product.product_name}

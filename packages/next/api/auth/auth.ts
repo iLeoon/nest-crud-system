@@ -9,8 +9,9 @@ export const loginAuth = async (userData: credentialsUser) => {
 };
 
 export const authenticatedUser = async () => {
-  const res = await api.get<User>('/auth/status');
+  const res = await api.get<User>('/auth/status', { withCredentials: true });
   return res.data;
 };
 
-export const signOut = async () => api.get('/auth/logout');
+export const signOut = async () =>
+  api.get('/auth/logout', { withCredentials: true });

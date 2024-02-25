@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import session from 'express-session';
 import passport from 'passport';
 import MongoStore from 'connect-mongo';
-import sessionConfig from './sessions/sessions.config';
+import sessionConfig from './sessions/sessions.store';
 import { LoggerFilter } from './exceptions/logging.filter';
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
