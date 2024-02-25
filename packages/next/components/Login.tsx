@@ -12,8 +12,8 @@ import {
   Aligning,
 } from '@/styles/pages/loginpage';
 import { Button } from '@/styles/Buttons/loginbutton';
-import { credentialsUser } from '@/types';
-import { loginAuth } from '@/api/auth/auth';
+import { credentialsUser } from '@/utils/types';
+import { loginAuth } from '@/utils/api/auth/auth';
 
 export default function Login() {
   const router = useRouter();

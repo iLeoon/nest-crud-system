@@ -1,8 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/naming-convention */
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,9 +12,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Product } from '@/types';
-import Products from './Products';
-import { getProduct } from '@/api/products/getProducts';
+import { useQuery } from '@tanstack/react-query';
+import { getProduct } from '@/utils/api/products/getProducts';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,32 +36,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ProductsTable() {
-  const [products, setProducts] = useState<Product[]>();
-
-  useEffect(() => {
-    Products()
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const { data } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProduct,
+  });
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>#</StyledTableCell>
+            <StyledTableCell align="right">Product Name</StyledTableCell>
+            <StyledTableCell align="right">Unit Price(g)</StyledTableCell>
+            <StyledTableCell align="right">Stock(g)</StyledTableCell>
+            <StyledTableCell align="right">Actions(g)</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products?.map((product) => (
+          {data?.map((product) => (
             <StyledTableRow key={product.product_id}>
+              <StyledTableCell align="right">
+                {product.product_id}
+              </StyledTableCell>
               <StyledTableCell align="right">
                 {product.product_name}
               </StyledTableCell>

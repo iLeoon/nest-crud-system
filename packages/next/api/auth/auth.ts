@@ -1,4 +1,4 @@
-import { User, credentialsUser } from '@/types';
+import { User, credentialsUser } from '@/utils/types';
 import api from '../config';
 
 export const loginAuth = async (userData: credentialsUser) => {

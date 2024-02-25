@@ -16,8 +16,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useRouter } from 'next/navigation';
-import { User } from '@/types';
-import { authenticatedUser, signOut } from '@/api/auth/auth';
+import { User } from '@/utils/types';
+import { authenticatedUser, signOut } from '@/utils/api/auth/auth';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
