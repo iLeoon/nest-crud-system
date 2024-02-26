@@ -6,6 +6,7 @@ import {
 } from 'src/products/dtos/products.dto';
 import { Products } from './entities/Products';
 import { Repository } from 'typeorm';
+import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class ProductsService {
@@ -44,7 +45,14 @@ export class ProductsService {
 	updateProduct(id: number, data: updateProductDTO) {
 		return this.productsRepo.update(id, data);
 	}
+
 	deleteProduct(id: number) {
 		return this.productsRepo.delete(id);
+	}
+
+	async paginate(options: IPaginationOptions) {
+		const queryBuilder = this.productsRepo.createQueryBuilder('p');
+		queryBuilder.orderBy('p.product_id', 'DESC');
+		return await paginate<Products>(queryBuilder, options);
 	}
 }

@@ -1,12 +1,14 @@
 import {
 	Body,
 	Controller,
+	DefaultValuePipe,
 	Delete,
 	Get,
 	Param,
 	ParseIntPipe,
 	Post,
 	Put,
+	Query,
 	UseGuards,
 	UseInterceptors,
 } from '@nestjs/common';
@@ -18,13 +20,16 @@ import { AuthenticatedGuard } from 'src/auth/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
 @Controller('products')
 @UseInterceptors(LoggerInterceptor)
-@UseGuards(AuthenticatedGuard)
+@UseGuards(AuthenticatedGuard, ProductsGuard)
 export class ProductsController {
 	constructor(private productservice: ProductsService) {}
 	@Roles(['admin'])
 	@Get()
-	async getProducts() {
-		return await this.productservice.allProducts();
+	async getProducts(
+		@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+		@Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+	) {
+		return await this.productservice.paginate({ page, limit });
 	}
 	@Get(':id')
 	async getProductByID(@Param('id', ParseIntPipe) id: number) {
