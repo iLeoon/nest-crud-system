@@ -18,7 +18,7 @@ export class UsersController {
 	constructor(private usersService: UsersService) {}
 	@Get()
 	async getUsers() {
-		return await this.usersService.getUsers();
+	 return await this.usersService.getUsers();
 	}
 
 	@Post('create')
