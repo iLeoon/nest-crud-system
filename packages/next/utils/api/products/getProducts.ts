@@ -1,8 +1,8 @@
-import { Product } from '@/utils/types';
+import type { DataResponse } from '@/utils/types';
 import apiFetch from '../config';
 
-export const getProduct = async () => {
-  const products = await apiFetch.get<Product[]>('/products');
+export const getProducts = async () => {
+  const data = await apiFetch.get<DataResponse>('/products');
 
-  return products.data;
+  return data.data;
 };

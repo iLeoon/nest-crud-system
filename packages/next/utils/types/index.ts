@@ -11,3 +11,16 @@ export type Product = {
   unit_price: number;
   units_in_stock: number;
 };
+
+export type paginationOps = {
+  totalItems: number;
+  itemCount: number;
+  itemsPerPage: number;
+  totalPages: number;
+  currentPage: number;
+};
+
+export type DataResponse = {
+  items: Product[];
+  meta: paginationOps;
+};

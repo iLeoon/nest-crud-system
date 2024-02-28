@@ -7,15 +7,14 @@ import {
 } from '@tanstack/react-query';
 import CreateButton from '@/components/Buttons/CreateButton';
 import Header from '@/components/Header';
-// import Products from '@/components/Products';
 import ProductsTable from '@/components/ProductsTable';
-import { getProduct } from '@/utils/api/products/getProducts';
+import { getProducts } from '@/utils/api/products/getProducts';
 
 export default async function HomePage() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ['products'],
-    queryFn: getProduct,
+    queryFn: getProducts,
   });
   return (
     <>

@@ -13,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useQuery } from '@tanstack/react-query';
-import { getProduct } from '@/utils/api/products/getProducts';
+import { getProducts } from '@/utils/api/products/getProducts';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,24 +38,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ProductsTable() {
   const { data } = useQuery({
     queryKey: ['products'],
-    queryFn: getProduct,
+    queryFn: getProducts,
   });
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>#</StyledTableCell>
+            <StyledTableCell align="center">#</StyledTableCell>
             <StyledTableCell align="right">Product Name</StyledTableCell>
-            <StyledTableCell align="right">Unit Price(g)</StyledTableCell>
-            <StyledTableCell align="right">Stock(g)</StyledTableCell>
-            <StyledTableCell align="right">Actions(g)</StyledTableCell>
+            <StyledTableCell align="right">Unit Price($)</StyledTableCell>
+            <StyledTableCell align="right">Stock</StyledTableCell>
+            <StyledTableCell align="right">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((product) => (
+          {data?.items.map((product) => (
             <StyledTableRow key={product.product_id}>
-              <StyledTableCell align="right">
+              <StyledTableCell align="center">
                 {product.product_id}
               </StyledTableCell>
               <StyledTableCell align="right">

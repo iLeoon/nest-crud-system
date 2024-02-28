@@ -52,7 +52,7 @@ export class ProductsService {
 
 	async paginate(options: IPaginationOptions) {
 		const queryBuilder = this.productsRepo.createQueryBuilder('p');
-		queryBuilder.orderBy('p.product_id', 'DESC');
+		queryBuilder.orderBy('p.product_id', 'ASC');
 		return await paginate<Products>(queryBuilder, options);
 	}
 }
