@@ -4,7 +4,7 @@
 
 #root, body, html {
     height: 100%;
-    background-color: #1a1a1a;
+    /* background-color: #1a1a1a; */
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 

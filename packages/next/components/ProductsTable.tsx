@@ -14,6 +14,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useQuery } from '@tanstack/react-query';
 import { getProducts } from '@/utils/api/products/getProducts';
+import Paginate from './Pagination';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,42 +36,50 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ProductsTable() {
+export default function ProductsTable({
+  queryParams,
+}: {
+  queryParams: number;
+}) {
   const { data } = useQuery({
     queryKey: ['products'],
-    queryFn: getProducts,
+    queryFn: async () => getProducts(),
   });
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">#</StyledTableCell>
-            <StyledTableCell align="right">Product Name</StyledTableCell>
-            <StyledTableCell align="right">Unit Price($)</StyledTableCell>
-            <StyledTableCell align="right">Stock</StyledTableCell>
-            <StyledTableCell align="right">Actions</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data?.items.map((product) => (
-            <StyledTableRow key={product.product_id}>
-              <StyledTableCell align="center">
-                {product.product_id}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {product.product_name}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {product.unit_price}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {product.units_in_stock}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {' '}
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center">#</StyledTableCell>
+              <StyledTableCell align="right">Product Name</StyledTableCell>
+              <StyledTableCell align="right">Unit Price($)</StyledTableCell>
+              <StyledTableCell align="right">Stock</StyledTableCell>
+              <StyledTableCell align="right">Actions</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data?.items.map((product) => (
+              <StyledTableRow key={product.product_id}>
+                <StyledTableCell align="center">
+                  {product.product_id}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {product.product_name}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {product.unit_price}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {product.units_in_stock}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Paginate paginationOptions={data?.meta!} />
+    </>
   );
 }

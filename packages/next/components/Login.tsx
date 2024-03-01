@@ -24,7 +24,7 @@ export default function Login() {
     loginAuth(data)
       .then((res) => {
         if (res.status === 201) {
-          router.push('/');
+          router.push('/products');
         }
       })
       .catch((e: AxiosError | Error) => {

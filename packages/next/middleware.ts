@@ -7,10 +7,10 @@ export function middleware(request: NextRequest) {
   if (!currentUser) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
-  NextResponse.redirect(new URL('/', request.url));
+  NextResponse.redirect(new URL('/products', request.url));
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/'],
+  matcher: ['/products'],
 };
