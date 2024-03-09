@@ -7,7 +7,8 @@ module.exports = {
   extends: [
     "next/core-web-vitals",
     "airbnb",
-    "airbnb-typescript"
+    "airbnb-typescript", 
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['.eslintrc.js'],
   rules: {
