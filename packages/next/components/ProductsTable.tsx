@@ -3,7 +3,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,9 +12,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useQuery } from '@tanstack/react-query';
+import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Box, NoSsr, Pagination, Skeleton, Stack } from '@mui/material';
 import { getProducts } from '@/utils/api/products/getProducts';
-import Paginate from './Pagination';
+import { Product } from '@/utils/types';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,15 +37,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ProductsTable({
-  queryParams,
-}: {
-  queryParams: number;
-}) {
+export default function ProductsTable() {
+  const queryClient = useQueryClient();
+  const [page, setPage] = useState<number>(1);
   const { data } = useQuery({
-    queryKey: ['products'],
-    queryFn: async () => getProducts(),
+    queryKey: ['products', page],
+    queryFn: async () => getProducts(page),
+    placeholderData: () => queryClient.getQueryData(['products', page - 1]),
   });
+  const handleChange = async (
+    event: ChangeEvent<unknown>,
+    currentPage: number
+  ) => {
+    setPage(currentPage);
+  };
   return (
     <>
       {' '}
@@ -79,7 +85,15 @@ export default function ProductsTable({
           </TableBody>
         </Table>
       </TableContainer>
-      <Paginate paginationOptions={data?.meta!} />
+      <Stack spacing={2}>
+        <Pagination
+          count={data?.meta.totalPages}
+          color="primary"
+          variant="outlined"
+          page={page}
+          onChange={handleChange}
+        />
+      </Stack>
     </>
   );
 }

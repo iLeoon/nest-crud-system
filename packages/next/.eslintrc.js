@@ -23,7 +23,7 @@ module.exports = {
         "format": ["camelCase", "PascalCase", "snake_case"]
       }
     ],
-    "comma-dangle": "off",
-    "@typescript-eslint/comma-dangle": "error"
+    "comma-dangle": ["error", "never"],
+    "@typescript-eslint/comma-dangle": "off"
   },
 };
