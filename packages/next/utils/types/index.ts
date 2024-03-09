@@ -20,7 +20,7 @@ export type paginationOps = {
 	currentPage: number;
 };
 
-export type DataResponse = {
+export type ProductsResponse = {
 	items: Product[];
 	meta: paginationOps;
 };

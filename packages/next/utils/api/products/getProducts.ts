@@ -1,10 +1,10 @@
-import { type DataResponse } from '@/utils/types';
+import { type ProductsResponse } from '@/utils/types';
 import apiFetch from '../config';
 
 export const getProducts = async (pageNumber: number) => {
-  const data = await apiFetch.get<DataResponse>(
-    `/products?page=${pageNumber}&limit=5`
-  );
+	const res = await apiFetch.get<ProductsResponse>(
+		`/products?page=${pageNumber}&limit=5`
+	);
 
-  return data.data;
+	return res.data;
 };
