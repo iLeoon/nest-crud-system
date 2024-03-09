@@ -16,7 +16,7 @@ module.exports = {
     "import/extensions": ["error", "never"],
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": false, "optionalDependencies": false, "peerDependencies": false }],
+    "import/no-extraneous-dependencies": ["error", "never"],
     "@typescript-eslint/naming-convention": [
       "error",
       {
