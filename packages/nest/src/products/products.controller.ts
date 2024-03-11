@@ -38,11 +38,11 @@ export class ProductsController {
 	}
 	@Roles(['admin'])
 	@Post('create')
-	create(
+	async create(
 		@Body()
 		productData: createProductDTO,
 	) {
-		return this.productservice.createProduct(productData);
+		await this.productservice.createProduct(productData);
 	}
 
 	@Put('update/:id')

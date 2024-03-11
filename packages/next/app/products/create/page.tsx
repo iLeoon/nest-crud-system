@@ -1,7 +1,8 @@
+import CreateForm from '@/components/forms/CreateForm';
 import * as React from 'react';
 
 function Create() {
-	return <p>Hello world</p>;
+	return <CreateForm />;
 }
 
 export default Create;

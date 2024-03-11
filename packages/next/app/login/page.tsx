@@ -1,9 +1,9 @@
 'use client';
 
-import * as React from 'react';
+import React from 'react';
 
-import Login from '@/components/forms/Login';
+import LoginForm from '@/components/forms/LoginForm';
 
 export default function AuthPage() {
-  return <Login />;
+  return <LoginForm />;
 }

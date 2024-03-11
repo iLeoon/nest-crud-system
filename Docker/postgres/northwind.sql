@@ -118,3 +118,10 @@ INSERT INTO products VALUES (74, 'Longlife Tofu', 4, 7, '5 kg pkg.', 10, 4, 20, 
 INSERT INTO products VALUES (75, 'Rhönbräu Klosterbier', 12, 1, '24 - 0.5 l bottles', 7.75, 125, 0, 25, 0);
 INSERT INTO products VALUES (76, 'Lakkalikööri', 23, 1, '500 ml', 18, 57, 0, 20, 0);
 INSERT INTO products VALUES (77, 'Original Frankfurter grüne Soße', 12, 2, '12 boxes', 13, 32, 0, 15, 0);
+
+--
+-- Adding auto incrementing on product_id COLUMN
+--
+CREATE SEQUENCE public_products_id_seq OWNED BY products.product_id;
+SELECT SETVAL('public_products_id_seq', (select max(product_id) from public.products), false)
+ALTER TABLE public.products ALTER COLUMN product_id SET DEFAULT nextval('public_products_id_seq');

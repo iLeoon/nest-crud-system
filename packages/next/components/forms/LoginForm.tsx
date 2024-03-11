@@ -15,7 +15,7 @@ import { Button } from '@/styles/Buttons/loginbutton';
 import { credentialsUser } from '@/utils/types';
 import { loginAuth } from '@/utils/api/auth/auth';
 
-export default function Login() {
+export default function LoginForm() {
 	const router = useRouter();
 	const [error, sertError] = useState('');
 	const [show, setShow] = useState<boolean>(false);

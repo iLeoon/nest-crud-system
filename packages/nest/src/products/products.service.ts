@@ -37,9 +37,9 @@ export class ProductsService {
 		);
 	}
 
-	createProduct(data: createProductDTO): Promise<createProductDTO> {
+	async createProduct(data: createProductDTO): Promise<createProductDTO> {
 		const newProduct = this.productsRepo.create(data);
-		return this.productsRepo.save(newProduct);
+		return await this.productsRepo.save(newProduct);
 	}
 
 	updateProduct(id: number, data: updateProductDTO) {

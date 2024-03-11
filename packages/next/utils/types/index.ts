@@ -1,3 +1,6 @@
+import z from 'zod';
+import { createSchema } from '../validation/create-updateFormValidation';
+
 export type User = {
 	email: string;
 	name: string;
@@ -20,7 +23,9 @@ export type paginationOps = {
 	currentPage: number;
 };
 
-export type ProductsResponse = {
+export type productsResponse = {
 	items: Product[];
 	meta: paginationOps;
 };
+
+export type createSchemaType = z.infer<typeof createSchema>;

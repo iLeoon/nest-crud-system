@@ -16,7 +16,7 @@ import { Stack, Pagination, Box, Skeleton } from '@mui/material';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { getProducts } from '@/utils/api/products/getProducts';
-import { type ProductsResponse } from '@/utils/types';
+import { type productsResponse } from '@/utils/types';
 import CreateButton from './Buttons/CreateButton';
 import { UpdateButton } from './Buttons/UpdateButton';
 import { DeleteButton } from './Buttons/DeleteButton';
@@ -44,7 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ProductsTable() {
 	const queryClient = useQueryClient();
 	const [page, setPage] = useState<number>(1);
-	const { data, isLoading } = useQuery<ProductsResponse>({
+	const { data, isLoading } = useQuery<productsResponse>({
 		queryKey: ['products', page],
 		queryFn: async () => getProducts(page),
 		placeholderData: () => queryClient.getQueryData(['products', page - 1])
