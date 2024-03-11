@@ -20,6 +20,7 @@ import { type productsResponse } from '@/utils/types';
 import CreateButton from './Buttons/CreateButton';
 import { UpdateButton } from './Buttons/UpdateButton';
 import { DeleteButton } from './Buttons/DeleteButton';
+import { TableSkeleton } from './TableSkeleton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -58,15 +59,7 @@ export default function ProductsTable() {
 	return (
 		<>
 			{isLoading ? (
-				<Box sx={{ marginTop: '40px' }}>
-					<Skeleton variant="rectangular" height={50} />
-					<Skeleton variant="text" height={50} />
-					<Skeleton variant="text" height={50} />
-					<Skeleton variant="text" height={50} />
-					<Skeleton variant="text" height={50} />
-					<Skeleton variant="text" height={50} />
-					<Skeleton variant="text" width={400} height={50} />
-				</Box>
+				<TableSkeleton />
 			) : (
 				<div>
 					<Link href="/products/create">

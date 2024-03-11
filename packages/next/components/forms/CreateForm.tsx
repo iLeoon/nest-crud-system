@@ -16,22 +16,35 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation } from '@tanstack/react-query';
 import { createProduct } from '@/utils/api/products/createProduct';
+import { DisplayAlert } from '../Alert';
 
 export default function CreateForm() {
 	const form = useForm<createSchemaType>({
 		resolver: zodResolver(createSchema)
 	});
-	const { mutate, isSuccess } = useMutation({
+	const { mutate, isSuccess, isPending } = useMutation({
 		mutationKey: ['create-product'],
 		mutationFn: createProduct
 	});
 	const onSubmit = (values: createSchemaType) => {
 		mutate(values);
+		form.reset();
 	};
 	return (
 		<>
+			{isSuccess && (
+				<DisplayAlert
+					message={'Product created successfully'}
+					color="success"
+					severity="success"
+				/>
+			)}
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className=" w-[70%] px-7 py-7"
+				>
+					<h1>Add product's details:</h1>
 					<FormField
 						control={form.control}
 						name="product_name"
@@ -39,12 +52,13 @@ export default function CreateForm() {
 							<FormItem>
 								<FormControl>
 									<Input
-										placeholder="Product Name"
+										className="mx-5 my-5 placeholder:text-slate-350"
+										placeholder="Name"
 										{...field}
 										value={field.value ?? ''}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className="mx-5 my-5" />
 							</FormItem>
 						)}
 					/>
@@ -55,13 +69,14 @@ export default function CreateForm() {
 							<FormItem>
 								<FormControl>
 									<Input
+										className="mx-5 my-5 placeholder:text-slate-350"
 										placeholder="Price"
 										{...field}
 										type="string"
 										value={field.value ?? ''}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className="mx-5 my-5" />
 							</FormItem>
 						)}
 					/>
@@ -72,16 +87,19 @@ export default function CreateForm() {
 							<FormItem>
 								<FormControl>
 									<Input
+										className="mx-5 my-5 placeholder:text-slate-350"
 										placeholder="In Stock"
 										{...field}
 										value={field.value ?? ''}
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className="mx-5 my-5" />
 							</FormItem>
 						)}
 					/>
-					<Button type="submit">Submit</Button>
+					<Button disabled={isPending} type="submit" className="mx-5 my-5">
+						Submit
+					</Button>
 				</form>
 			</Form>
 		</>
