@@ -12,7 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Stack, Pagination, Box, Skeleton } from '@mui/material';
+import { Stack, Pagination } from '@mui/material';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { getProducts } from '@/utils/api/products/getProducts';
