@@ -93,7 +93,7 @@ export default function ProductsTable() {
 											{product.units_in_stock}
 										</StyledTableCell>
 										<StyledTableCell align="right">
-											<Link href="products/update">
+											<Link href={`products/update/${product.product_id}`}>
 												<UpdateButton />
 											</Link>
 											<DeleteButton />
