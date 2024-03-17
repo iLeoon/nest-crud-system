@@ -41,9 +41,9 @@ export default function LoginForm() {
 	return (
 		<Aligning>
 			<form style={{ width: '500px' }} onSubmit={handleSubmit(onSumbit)}>
-				{show && (
+				{show && ( 
 					<Alert
-						variant="outlined"
+						variant="outlined"        
 						severity="error"
 						onClose={() => {
 							setShow(false);
