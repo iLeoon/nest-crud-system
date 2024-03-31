@@ -8,7 +8,7 @@ export const createSchema = z
 				invalid_type_error: '* Product name must be a string'
 			})
 			.min(5, '* Product name must not be less than 5 letters')
-			.max(20, '* Product name must not be more than 20 letters'),
+			.max(30, '* Product name must not be more than 20 letters'),
 		unit_price: z.coerce
 			.number({
 				required_error: "* Product price can't be empty",
