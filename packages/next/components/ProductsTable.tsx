@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 
 'use client';
-
 import React, { useState, ChangeEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -45,7 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ProductsTable() {
 	const queryClient = useQueryClient();
 	const [page, setPage] = useState<number>(1);
-	const { data, isLoading } = useQuery<productsResponse>({
+	const { data, isLoading, refetch } = useQuery<productsResponse>({
 		queryKey: ['products', page],
 		queryFn: async () => getProducts(page),
 		placeholderData: () => queryClient.getQueryData(['products', page - 1])
@@ -56,6 +55,7 @@ export default function ProductsTable() {
 	) => {
 		setPage(currentPage);
 	};
+	console.log(data?.meta);
 	return (
 		<>
 			{isLoading ? (
@@ -81,7 +81,7 @@ export default function ProductsTable() {
 								{data?.items.map((product) => (
 									<StyledTableRow key={product.product_id}>
 										<StyledTableCell align="center">
-											{product.product_id}
+											{data.items.indexOf(product)}
 										</StyledTableCell>
 										<StyledTableCell align="right">
 											{product.product_name}
@@ -92,11 +92,16 @@ export default function ProductsTable() {
 										<StyledTableCell align="right">
 											{product.units_in_stock}
 										</StyledTableCell>
-										<StyledTableCell align="right">
+										<StyledTableCell align="right" className="">
 											<Link href={`products/update/${product.product_id}`}>
 												<UpdateButton />
 											</Link>
-											<DeleteButton />
+											<DeleteButton
+												id={product.product_id}
+												refetch={refetch}
+												setPage={setPage}
+												data={data}
+											/>
 										</StyledTableCell>
 									</StyledTableRow>
 								))}

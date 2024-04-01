@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, AlertProps } from '@mui/material';
+import { Alert } from '@mui/material';
 import { attributes } from '@/utils/types';
 import CheckIcon from '@mui/icons-material/CheckCircleOutlined';
 

@@ -30,7 +30,6 @@ type Props = {
 };
 
 export default function UpdateForm({ id, data }: Props) {
-	const [enable, setEnable] = useState(true);
 	const form = useForm<updateSchemaType>({
 		mode: 'onChange',
 		resolver: zodResolver(updateSchema),
