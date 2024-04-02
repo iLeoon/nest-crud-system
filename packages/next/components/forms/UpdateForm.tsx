@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { updateSchema } from '@/utils/validation/create-updateFormValidation';
 import { type updateSchemaType } from '@/utils/types';
 import { useForm } from 'react-hook-form';
@@ -9,7 +9,8 @@ import {
 	Form,
 	FormField,
 	FormItem,
-	FormMessage
+	FormMessage,
+	FormLabel
 } from '../ui/form';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -40,16 +41,20 @@ export default function UpdateForm({ id, data }: Props) {
 		}
 	});
 
-	const { mutate, isSuccess, isPending } = useMutation({
+	const { mutate, isSuccess } = useMutation({
 		mutationKey: ['update-product'],
 		mutationFn: updateProduct
 	});
 	const onSubmit = (values: updateSchemaType) => {
 		mutate({ values, id });
 	};
-	console.log(form.formState.isDirty);
+	useEffect(() => {
+		if (form.formState.isSubmitSuccessful) {
+			form.reset(form.getValues());
+		}
+	}, [form.formState.isSubmitSuccessful]);
 	return (
-		<Card>
+		<Card className="m-5">
 			{isSuccess && (
 				<DisplayAlert
 					message={'Product updated successfully'}
@@ -59,23 +64,23 @@ export default function UpdateForm({ id, data }: Props) {
 			)}
 			<CardHeader>
 				<CardTitle>Update Product</CardTitle>
-				<CardDescription>Update the specified product</CardDescription>
+				<CardDescription>Update the following product</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
-						className=" w-[70%] px-7 py-7"
+						className="space-y-8 w-2/4"
 					>
 						<FormField
 							control={form.control}
 							name="product_name"
 							render={({ field }) => (
 								<FormItem>
+									<FormLabel className="mx-5">Product Name</FormLabel>
 									<FormControl>
 										<Input
 											className="mx-5 my-5 placeholder:text-slate-350"
-											placeholder="Name"
 											{...field}
 										/>
 									</FormControl>
@@ -88,11 +93,12 @@ export default function UpdateForm({ id, data }: Props) {
 							name="unit_price"
 							render={({ field }) => (
 								<FormItem>
+									<FormLabel className="mx-5">Product Price</FormLabel>
 									<FormControl>
 										<Input
 											className="mx-5 my-5 placeholder:text-slate-350"
-											placeholder="Price"
 											{...field}
+											type="string"
 										/>
 									</FormControl>
 									<FormMessage className="mx-5 my-5" />
@@ -104,11 +110,12 @@ export default function UpdateForm({ id, data }: Props) {
 							name="units_in_stock"
 							render={({ field }) => (
 								<FormItem>
+									<FormLabel className="mx-5">Units In Stock</FormLabel>
 									<FormControl>
 										<Input
 											className="mx-5 my-5 placeholder:text-slate-350"
-											placeholder="In Stock"
 											{...field}
+											type="string"
 										/>
 									</FormControl>
 									<FormMessage className="mx-5 my-5" />

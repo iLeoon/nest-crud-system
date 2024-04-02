@@ -17,9 +17,22 @@ import Link from 'next/link';
 import { getProducts } from '@/utils/api/products/getProducts';
 import { type productsResponse } from '@/utils/types';
 import CreateButton from './Buttons/CreateButton';
-import { UpdateButton } from './Buttons/UpdateButton';
-import { DeleteButton } from './Buttons/DeleteButton';
+import {
+	AlertDialog,
+	AlertDialogTrigger,
+	AlertDialogContent,
+	AlertDialogHeader,
+	AlertDialogFooter,
+	AlertDialogCancel,
+	AlertDialogDescription,
+	AlertDialogAction,
+	AlertDialogTitle
+} from '@/components/ui/alert-dialog';
+import { deleteProduct } from '@/utils/api/products/deleteProduct';
 import { TableSkeleton } from './TableSkeleton';
+import { Trash, Pencil } from 'lucide-react';
+import { cn } from '@/lib/helper';
+import { buttonVariants } from './ui/button';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -55,7 +68,6 @@ export default function ProductsTable() {
 	) => {
 		setPage(currentPage);
 	};
-	console.log(data?.meta);
 	return (
 		<>
 			{isLoading ? (
@@ -92,16 +104,55 @@ export default function ProductsTable() {
 										<StyledTableCell align="right">
 											{product.units_in_stock}
 										</StyledTableCell>
-										<StyledTableCell align="right" className="">
-											<Link href={`products/update/${product.product_id}`}>
-												<UpdateButton />
+										<StyledTableCell align="right" className="flex">
+											<AlertDialog>
+												<AlertDialogTrigger
+													className={cn(
+														buttonVariants({ variant: 'ghost', size: 'icon' }),
+														'rounded-full hover:bg-red-300'
+													)}
+												>
+													<Trash color="red" className="w-5 h-5" />
+												</AlertDialogTrigger>
+												<AlertDialogContent>
+													<AlertDialogHeader>
+														<AlertDialogTitle>
+															Confirm Deletion
+														</AlertDialogTitle>
+														<AlertDialogDescription>
+															This action cannot be undone. This will
+															permanently delete the specified product.
+														</AlertDialogDescription>
+													</AlertDialogHeader>
+													<AlertDialogFooter>
+														<AlertDialogCancel>Cancel</AlertDialogCancel>
+														<AlertDialogAction
+															type="button"
+															onClick={async () => {
+																await deleteProduct(product.product_id);
+																refetch();
+																if (data.meta.itemCount === 1) {
+																	setPage(page - 1);
+																}
+															}}
+														>
+															Continue
+														</AlertDialogAction>
+													</AlertDialogFooter>
+												</AlertDialogContent>
+											</AlertDialog>
+											<Link
+												href={`products/update/${product.product_id}`}
+												className={cn(
+													buttonVariants({
+														variant: 'ghost',
+														size: 'icon'
+													}),
+													'rounded-full hover:bg-blue-300'
+												)}
+											>
+												<Pencil color="blue" className="w-5 h-5" />
 											</Link>
-											<DeleteButton
-												id={product.product_id}
-												refetch={refetch}
-												setPage={setPage}
-												data={data}
-											/>
 										</StyledTableCell>
 									</StyledTableRow>
 								))}

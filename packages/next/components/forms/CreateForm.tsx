@@ -39,7 +39,7 @@ export default function CreateForm() {
 		form.reset();
 	};
 	return (
-		<Card className="w-[50%] mx-9 my-9">
+		<Card className="m-5">
 			{isSuccess && (
 				<DisplayAlert
 					message={'Product created successfully'}
@@ -57,7 +57,7 @@ export default function CreateForm() {
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
-						className="space-y-8 w-96"
+						className="space-y-8 w-2/4"
 					>
 						<FormField
 							control={form.control}
