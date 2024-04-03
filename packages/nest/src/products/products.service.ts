@@ -4,7 +4,7 @@ import {
 	createProductDTO,
 	updateProductDTO,
 } from 'src/products/dtos/products.dto';
-import { Products } from './entities/Products';
+import { Products } from '../entities/Products';
 import { Repository } from 'typeorm';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 
