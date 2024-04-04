@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { createSchema } from '@/utils/validation/create-updateFormValidation';
+import { createSchema } from '@/utils/validation/FormSchemas';
 import { type createSchemaType } from '@/utils/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

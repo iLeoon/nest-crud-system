@@ -1,8 +1,9 @@
 import z from 'zod';
 import {
 	createSchema,
+	LoginSchema,
 	updateSchema
-} from '../validation/create-updateFormValidation';
+} from '../validation/FormSchemas';
 import { AlertProps } from '@mui/material';
 
 export type User = {
@@ -34,5 +35,6 @@ export type productsResponse = {
 
 export type createSchemaType = z.infer<typeof createSchema>;
 export type updateSchemaType = z.infer<typeof updateSchema>;
+export type loginSchemaType = z.infer<typeof LoginSchema>;
 
 export type attributes = { message: string } & AlertProps;

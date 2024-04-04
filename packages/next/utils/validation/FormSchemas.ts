@@ -1,5 +1,18 @@
 import z from 'zod';
 
+export const LoginSchema = z.object({
+	email: z
+		.string()
+		.email('Invalid email address format')
+		.min(5, 'Email must be at least 5 characters long.')
+		.max(255, 'Email cannot exceed 255 characters.'),
+
+	password: z
+		.string()
+		.min(3, 'Password must be at least 3 characters long.')
+		.max(255, 'Password cannot exceed 255 characters.')
+});
+
 export const createSchema = z
 	.object({
 		product_name: z
