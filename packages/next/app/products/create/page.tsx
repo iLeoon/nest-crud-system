@@ -1,4 +1,4 @@
-import CreateForm from '@/components/forms/CreateForm';
+import CreateForm from '@/components/forms/products/CreateForm';
 import * as React from 'react';
 
 function Create() {

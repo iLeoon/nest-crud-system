@@ -11,11 +11,11 @@ import {
 	FormItem,
 	FormMessage,
 	FormLabel
-} from '../ui/form';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+} from '../../ui/form';
+import { Button } from '../../ui/button';
+import { Input } from '../../ui/input';
 import { useMutation } from '@tanstack/react-query';
-import { DisplayAlert } from '../Alert';
+import { DisplayAlert } from '../../Alert';
 import {
 	Card,
 	CardContent,

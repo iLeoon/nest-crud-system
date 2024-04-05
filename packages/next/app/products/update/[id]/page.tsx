@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import UpdateForm from '@/components/forms/UpdateForm';
+import UpdateForm from '@/components/forms/products/UpdateForm';
 import { useQuery } from '@tanstack/react-query';
 import { showProducts } from '@/utils/api/products/showProduct';
 
