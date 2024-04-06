@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const LoginSchema = z.object({
+export const LoginFormSchema = z.object({
 	email: z
 		.string()
 		.email('Invalid email address format')
@@ -13,7 +13,7 @@ export const LoginSchema = z.object({
 		.max(255, 'Password cannot exceed 255 characters.')
 });
 
-export const createSchema = z
+export const createProductSchema = z
 	.object({
 		product_name: z
 			.string({
@@ -42,4 +42,9 @@ export const createSchema = z
 	})
 	.strict();
 
-export const updateSchema = createSchema;
+export const updateProductSchema = createProductSchema;
+
+// export const updateAccountSchema = z.object({
+// 	name: z.string(),
+// 	image: 
+// })

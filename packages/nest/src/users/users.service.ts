@@ -5,19 +5,20 @@ import {
 	Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './entities/Users';
-import { Repository } from 'typeorm';
-import { UserDTO } from './dto/users.dto';
+import { User } from '../entities/Users';
+import { MongoRepository } from 'typeorm';
 import { encodePassword } from 'src/utils/hashing';
+import { ObjectId } from 'mongodb';
+import { UserDTO } from './dto/users.dto';
 
 @Injectable()
 export class UsersService {
 	constructor(
-		@InjectRepository(Users, 'MongoDB') private mongodb: Repository<Users>,
+		@InjectRepository(User, 'MongoDB') private userRepo: MongoRepository<User>,
 	) {}
 
 	async getUsers() {
-		const users = await this.mongodb.find();
+		const users = await this.userRepo.find();
 		if (users) {
 			return users;
 		}
@@ -25,7 +26,7 @@ export class UsersService {
 	}
 
 	async getUserByEmail(email: string) {
-		const user = await this.mongodb.findOneBy({ email });
+		const user = await this.userRepo.findOneBy({ email });
 		if (user) {
 			return user;
 		}
@@ -34,7 +35,14 @@ export class UsersService {
 
 	async createUser(userData: UserDTO) {
 		const password = await encodePassword(userData.password);
-		const user = this.mongodb.create({ ...userData, password });
-		return await this.mongodb.save(user);
+		const user = this.userRepo.create({ ...userData, password });
+		return await this.userRepo.save(user);
+	}
+
+	async updateUser(user: User, data: any) {
+		await this.userRepo.updateOne(
+			{ _id: new ObjectId(user._id) },
+			{ $set: { image: data } },
+		);
 	}
 }

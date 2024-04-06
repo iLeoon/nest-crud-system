@@ -14,9 +14,9 @@ import {
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { createProductDTO, updateProductDTO } from './dtos/products.dto';
-import { Roles } from './products.decorator';
-import { ProductsGuard } from './products.guard';
-import { AuthenticatedGuard } from 'src/auth/auth.guard';
+import { Roles } from '../decorators/products.decorator';
+import { ProductsGuard } from '../../guards/products.guard';
+import { AuthenticatedGuard } from 'guards/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
 @Controller('products')
 @UseInterceptors(LoggerInterceptor)

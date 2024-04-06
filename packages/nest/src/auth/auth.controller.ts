@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { SessionGuard } from '../sessions/session.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
-import { AuthenticatedGuard } from './auth.guard';
+import { AuthenticatedGuard } from '../../guards/auth.guard';
 @UseInterceptors(LoggerInterceptor)
 @Controller('auth')
 export class AuthController {

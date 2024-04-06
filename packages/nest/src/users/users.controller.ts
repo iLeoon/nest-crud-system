@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDTO } from './dto/users.dto';
-import { AuthenticatedGuard } from 'src/auth/auth.guard';
+import { AuthenticatedGuard } from 'guards/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
 
 @UseGuards(AuthenticatedGuard)
@@ -22,7 +22,7 @@ export class UsersController {
 	}
 
 	@Post('create')
-	async create(@Body() userData: UserDTO): Promise<UserDTO | string> {
+	async create(@Body() userData: UserDTO): Promise<string> {
 		await this.usersService.createUser(userData);
 		return 'User created succ!';
 	}

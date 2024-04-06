@@ -22,14 +22,6 @@ const sidebarNavItems = [
 		title: 'Appearance',
 		href: '/profile/appearance'
 	},
-	{
-		title: 'Notifications',
-		href: '/examples/forms/notifications'
-	},
-	{
-		title: 'Display',
-		href: '/examples/forms/display'
-	}
 ];
 
 interface SettingsLayoutProps {

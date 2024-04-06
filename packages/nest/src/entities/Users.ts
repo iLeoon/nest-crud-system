@@ -1,7 +1,7 @@
 import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class Users {
+export class User {
 	@ObjectIdColumn()
 	_id: ObjectId;
 
@@ -13,6 +13,9 @@ export class Users {
 
 	@Column()
 	name: string;
+
+	@Column()
+	image?: string;
 
 	@Column()
 	roles: string[];

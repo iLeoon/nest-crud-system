@@ -1,14 +1,15 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
-import { Products } from './entities/Products';
+import { Product } from './entities/Products';
 import { UsersModule } from './users/users.module';
-import { Users } from './users/entities/Users';
+import { User } from './entities/Users';
 import { AuthModule } from './auth/auth.module';
 import { LoggerMiddelWare } from './middelware/logging.middelware';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { UploadModule } from './upload/upload.module';
 @Module({
 	imports: [
 		ConfigModule.forRoot(),
@@ -17,9 +18,9 @@ import { APP_GUARD } from '@nestjs/core';
 			name: 'MongoDB',
 			type: 'mongodb',
 			url: process.env.MONGO_URI,
-			synchronize: false,
+			synchronize: true,
 			database: 'test',
-			entities: [Users],
+			entities: [User],
 		}),
 		TypeOrmModule.forRoot({
 			name: 'PostgresQL',
@@ -30,11 +31,12 @@ import { APP_GUARD } from '@nestjs/core';
 			password: process.env.DATABASE_PASSWORD,
 			database: process.env.DATABASE_NAME,
 			synchronize: false,
-			entities: [Products],
+			entities: [Product],
 		}),
 		ProductsModule,
 		UsersModule,
 		AuthModule,
+		UploadModule,
 	],
 	controllers: [],
 	providers: [
