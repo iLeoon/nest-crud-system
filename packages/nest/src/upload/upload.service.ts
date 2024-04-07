@@ -2,10 +2,12 @@ import {
 	PutObjectCommand,
 	S3Client,
 	GetObjectCommand,
+	DeleteObjectCommand,
 } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/entities/Users';
 import { UsersService } from 'src/users/users.service';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 @Injectable()
 export class UploadService {
@@ -18,25 +20,34 @@ export class UploadService {
 	});
 	constructor(private readonly userService: UsersService) {}
 
-	async uploadImage(imageName: string, image: Buffer, user: User) {
+	async uploadImage(image: Express.Multer.File, user: User) {
 		await this.s3Client.send(
 			new PutObjectCommand({
 				Bucket: process.env.BUCKET_NAME,
-				Key: `${imageName}${user._id}`,
-				Body: image,
+				Key: `${image.originalname}${user._id}`,
+				Body: image.buffer,
+				ContentType: image.mimetype,
 			}),
 		);
-		await this.userService.updateUser(user, imageName);
+		await this.userService.updateUser(user, image.originalname);
 	}
 
-	async getImage(imageName: string) {
+	async getImage(user: User) {
+		const command = new GetObjectCommand({
+			Bucket: process.env.BUCKET_NAME,
+			Key: user.image,
+		});
+
+		const url = await getSignedUrl(this.s3Client, command, { expiresIn: 900 });
+		return { imageUrl: url };
+	}
+
+	async deleteImage(user: User) {
 		await this.s3Client.send(
-			new GetObjectCommand({
+			new DeleteObjectCommand({
 				Bucket: process.env.BUCKET_NAME,
-				Key: imageName,
+				Key: user.image,
 			}),
 		);
 	}
-
-	async deleteImage() {}
 }

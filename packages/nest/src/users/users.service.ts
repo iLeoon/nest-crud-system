@@ -42,7 +42,7 @@ export class UsersService {
 	async updateUser(user: User, data: any) {
 		await this.userRepo.updateOne(
 			{ _id: new ObjectId(user._id) },
-			{ $set: { image: data } },
+			{ $set: { image: `${data}${user._id}` } },
 		);
 	}
 }

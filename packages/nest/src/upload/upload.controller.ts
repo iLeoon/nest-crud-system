@@ -24,10 +24,11 @@ export class UploadController {
 		@UploadedFile() image: Express.Multer.File,
 		@AuthUser() user: User,
 	) {
-		this.uploadService.uploadImage(image.originalname, image.buffer, user);
-		console.log(image);
+		this.uploadService.uploadImage(image, user);
 	}
 
-	@Get()
-	getProfileImage() {}
+	@Get('/getimage')
+	async getProfileImage(@AuthUser() user: User) {
+		return await this.uploadService.getImage(user);
+	}
 }
