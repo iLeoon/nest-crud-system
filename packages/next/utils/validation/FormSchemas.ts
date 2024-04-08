@@ -1,4 +1,5 @@
 import z from 'zod';
+import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/constants';
 
 export const LoginFormSchema = z.object({
 	email: z
@@ -44,7 +45,7 @@ export const createProductSchema = z
 
 export const updateProductSchema = createProductSchema;
 
-// export const updateAccountSchema = z.object({
-// 	name: z.string(),
-// 	image: 
-// })
+export const AccountFormSchema = z.object({
+	username: z.string().optional(),
+	image: z.instanceof(File).optional()
+});

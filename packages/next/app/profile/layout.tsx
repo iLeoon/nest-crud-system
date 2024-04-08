@@ -5,8 +5,8 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarNav } from '@/components/ui/profile/side-nav';
 
 export const metadata: Metadata = {
-	title: 'Forms',
-	description: 'Advanced form example using react-hook-form and Zod.'
+	title: 'Account',
+	description: 'Update and check all the account settings'
 };
 
 const sidebarNavItems = [

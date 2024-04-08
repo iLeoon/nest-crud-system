@@ -1,8 +1,9 @@
 import z from 'zod';
 import {
-	createSchema,
-	LoginSchema,
-	updateSchema
+	AccountFormSchema,
+	createProductSchema,
+	LoginFormSchema,
+	updateProductSchema
 } from '../validation/FormSchemas';
 import { AlertProps } from '@mui/material';
 
@@ -33,8 +34,18 @@ export type productsResponse = {
 	meta: paginationOps;
 };
 
-export type createSchemaType = z.infer<typeof createSchema>;
-export type updateSchemaType = z.infer<typeof updateSchema>;
-export type loginSchemaType = z.infer<typeof LoginSchema>;
+export type CreateProductSchemaType = z.infer<typeof createProductSchema>;
+export type UpdateProductSchemaType = z.infer<typeof updateProductSchema>;
+export type LoginSchemaType = z.infer<typeof LoginFormSchema>;
+export type AccountSchemaType = z.infer<typeof AccountFormSchema>;
 
 export type attributes = { message: string } & AlertProps;
+
+export type UpdateProfileData = {
+	username?: string,
+	image?: File;
+};
+
+export type GetImage = {
+	imageUrl: string;
+};

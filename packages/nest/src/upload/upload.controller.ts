@@ -1,4 +1,5 @@
 import {
+	Body,
 	Controller,
 	Get,
 	Post,
@@ -12,6 +13,7 @@ import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
 import { UploadService } from './upload.service';
 import { AuthUser } from 'src/decorators/authuser.decorator';
 import { User } from 'src/entities/Users';
+import { UploadDto } from './dto/update-profile.dto';
 
 @UseInterceptors(LoggerInterceptor)
 @UseGuards(AuthenticatedGuard)
@@ -19,11 +21,12 @@ import { User } from 'src/entities/Users';
 export class UploadController {
 	constructor(private readonly uploadService: UploadService) {}
 	@Post()
-	@UseInterceptors(FileInterceptor('file'))
+	@UseInterceptors(FileInterceptor('image'))
 	uploadProfileImage(
 		@UploadedFile() image: Express.Multer.File,
 		@AuthUser() user: User,
 	) {
+		console.log(image);
 		this.uploadService.uploadImage(image, user);
 	}
 

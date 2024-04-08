@@ -12,20 +12,19 @@ import {
 	FormField,
 	FormItem,
 	FormMessage,
-	FormLabel
 } from '@/components/ui/form';
 
 import { useForm } from 'react-hook-form';
-import { LoginSchema } from '@/utils/validation/FormSchemas';
+import { LoginFormSchema } from '@/utils/validation/FormSchemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchemaType } from '@/utils/types';
+import { LoginSchemaType } from '@/utils/types';
 import { loginAuth } from '@/utils/api/auth/auth';
 import { useRouter } from 'next/navigation';
 
 export function UserAuthForm() {
 	const router = useRouter();
-	const form = useForm<loginSchemaType>({
-		resolver: zodResolver(LoginSchema),
+	const form = useForm<LoginSchemaType>({
+		resolver: zodResolver(LoginFormSchema),
 		defaultValues: {
 			email: '',
 			password: ''
@@ -33,7 +32,7 @@ export function UserAuthForm() {
 	});
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-	const onSubmit = async (values: loginSchemaType) => {
+	const onSubmit = async (values: LoginSchemaType) => {
 		const res = await loginAuth(values);
 		console.log(res.error);
 		if (res.message === 'faild') {

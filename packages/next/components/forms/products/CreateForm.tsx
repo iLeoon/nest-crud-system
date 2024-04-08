@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { createSchema } from '@/utils/validation/FormSchemas';
-import { type createSchemaType } from '@/utils/types';
+import { createProductSchema } from '@/utils/validation/FormSchemas';
+import { type CreateProductSchemaType } from '@/utils/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -21,20 +21,19 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle
 } from '@/components/ui/card';
 
 export default function CreateForm() {
-	const form = useForm<createSchemaType>({
-		resolver: zodResolver(createSchema)
+	const form = useForm<CreateProductSchemaType>({
+		resolver: zodResolver(createProductSchema)
 	});
 	const { mutate, isSuccess, isPending } = useMutation({
 		mutationKey: ['create-product'],
 		mutationFn: createProduct
 	});
-	const onSubmit = (values: createSchemaType) => {
+	const onSubmit = (values: CreateProductSchemaType) => {
 		mutate(values);
 		form.reset();
 	};
