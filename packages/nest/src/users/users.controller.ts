@@ -38,13 +38,20 @@ export class UsersController {
 
 	@Post('/update')
 	@UseInterceptors(FileInterceptor('image'))
-	uploadProfileImage(
+	async uploadProfileImage(
 		@UploadedFile() image: Express.Multer.File,
 		@Body() data: UpdateUserDto,
 		@AuthUser() user: User,
 	) {
-		console.log(image);
-		console.log(data.username);
-		this.uploadService.uploadImage(image, user);
+		await this.uploadService.uploadImage(image, user);
+		await this.usersService.updateUser(user, {
+			image: image.originalname,
+			username: data.username,
+		});
+	}
+
+	@Get('/getuser')
+	async getProfileImage(@AuthUser() user: User) {
+		return await this.usersService.fetchUserData(user);
 	}
 }

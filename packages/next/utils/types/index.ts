@@ -46,6 +46,8 @@ export type UpdateUserData = {
 	image: File;
 };
 
-export type GetImage = {
-	imageUrl: string;
+export type GetUserData = {
+	email?: string;
+	name?: string;
+	image?: string;
 };

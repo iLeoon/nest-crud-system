@@ -10,11 +10,18 @@ import { MongoRepository } from 'typeorm';
 import { encodePassword } from 'src/utils/hashing';
 import { ObjectId } from 'mongodb';
 import { CreateUserDto } from './dto/create-users.dto';
+import { UploadService } from 'src/upload/upload.service';
+
+type UpdateUserData = {
+	image: string;
+	username: string;
+};
 
 @Injectable()
 export class UsersService {
 	constructor(
 		@InjectRepository(User, 'MongoDB') private userRepo: MongoRepository<User>,
+		private readonly uploadService: UploadService,
 	) {}
 
 	async getUsers() {
@@ -39,10 +46,15 @@ export class UsersService {
 		return await this.userRepo.save(user);
 	}
 
-	async updateUser(user: User, data: any) {
+	async updateUser(user: User, data: UpdateUserData) {
 		await this.userRepo.updateOne(
 			{ _id: new ObjectId(user._id) },
-			{ $set: { image: `${data}${user._id}` } },
+			{ $set: { image: `${data.image}${user._id}`, name: data.username } },
 		);
+	}
+
+	async fetchUserData(user: User) {
+		const { imageUrl } = await this.uploadService.getImage(user);
+		return { email: user.email, name: user.name, image: imageUrl };
 	}
 }

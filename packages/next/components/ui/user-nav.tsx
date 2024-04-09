@@ -9,15 +9,16 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import { GetUserData } from '@/utils/types';
 import Link from 'next/link';
 
-export function UserNav() {
+export function UserNav({ email, name, image }: GetUserData) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
 					<Avatar className="h-8 w-8">
-						<AvatarImage src="" alt="@shadcn" />
+						<AvatarImage src={image} alt="@shadcn" />
 						<AvatarFallback>SC</AvatarFallback>
 					</Avatar>
 				</Button>
@@ -25,9 +26,9 @@ export function UserNav() {
 			<DropdownMenuContent className="w-56" align="end" forceMount>
 				<DropdownMenuLabel className="font-normal">
 					<div className="flex flex-col space-y-1">
-						<p className="text-sm font-medium leading-none">shadcn</p>
+						<p className="text-sm font-medium leading-none">{name}</p>
 						<p className="text-xs leading-none text-muted-foreground">
-							m@example.com
+							{email}
 						</p>
 					</div>
 				</DropdownMenuLabel>

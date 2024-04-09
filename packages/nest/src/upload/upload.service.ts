@@ -6,7 +6,6 @@ import {
 } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/entities/Users';
-import { UsersService } from 'src/users/users.service';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 @Injectable()
@@ -18,7 +17,7 @@ export class UploadService {
 			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 		},
 	});
-	constructor(private readonly userService: UsersService) {}
+	constructor() {}
 
 	async uploadImage(image: Express.Multer.File, user: User) {
 		await this.s3Client.send(
@@ -29,7 +28,6 @@ export class UploadService {
 				ContentType: image.mimetype,
 			}),
 		);
-		await this.userService.updateUser(user, image.originalname);
 	}
 
 	async getImage(user: User) {
