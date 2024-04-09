@@ -9,7 +9,7 @@ import { User } from '../entities/Users';
 import { MongoRepository } from 'typeorm';
 import { encodePassword } from 'src/utils/hashing';
 import { ObjectId } from 'mongodb';
-import { UserDTO } from './dto/users.dto';
+import { CreateUserDto } from './dto/create-users.dto';
 
 @Injectable()
 export class UsersService {
@@ -33,7 +33,7 @@ export class UsersService {
 		throw new BadRequestException('No email was found');
 	}
 
-	async createUser(userData: UserDTO) {
+	async createUser(userData: CreateUserDto) {
 		const password = await encodePassword(userData.password);
 		const user = this.userRepo.create({ ...userData, password });
 		return await this.userRepo.save(user);

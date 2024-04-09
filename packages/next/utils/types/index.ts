@@ -41,9 +41,9 @@ export type AccountSchemaType = z.infer<typeof AccountFormSchema>;
 
 export type attributes = { message: string } & AlertProps;
 
-export type UpdateProfileData = {
-	username?: string,
-	image?: File;
+export type UpdateUserData = {
+	username: string;
+	image: File;
 };
 
 export type GetImage = {

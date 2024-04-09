@@ -3,27 +3,48 @@ import {
 	Controller,
 	Get,
 	Post,
+	UploadedFile,
 	UseGuards,
 	UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDTO } from './dto/users.dto';
+import { CreateUserDto } from './dto/create-users.dto';
 import { AuthenticatedGuard } from 'guards/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthUser } from 'src/decorators/authuser.decorator';
+import { User } from 'src/entities/Users';
+import { UploadService } from 'src/upload/upload.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @UseGuards(AuthenticatedGuard)
 @UseInterceptors(LoggerInterceptor)
 @Controller('users')
 export class UsersController {
-	constructor(private usersService: UsersService) {}
+	constructor(
+		private readonly usersService: UsersService,
+		private readonly uploadService: UploadService,
+	) {}
 	@Get()
 	async getUsers() {
 		return await this.usersService.getUsers();
 	}
 
 	@Post('create')
-	async create(@Body() userData: UserDTO): Promise<string> {
+	async create(@Body() userData: CreateUserDto): Promise<string> {
 		await this.usersService.createUser(userData);
 		return 'User created succ!';
+	}
+
+	@Post('/update')
+	@UseInterceptors(FileInterceptor('image'))
+	uploadProfileImage(
+		@UploadedFile() image: Express.Multer.File,
+		@Body() data: UpdateUserDto,
+		@AuthUser() user: User,
+	) {
+		console.log(image);
+		console.log(data.username);
+		this.uploadService.uploadImage(image, user);
 	}
 }

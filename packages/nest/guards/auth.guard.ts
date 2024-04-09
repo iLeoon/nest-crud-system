@@ -8,10 +8,14 @@ export class AuthenticatedGuard implements CanActivate {
 	constructor(private readonly userService: UsersService) {}
 	async canActivate(context: ExecutionContext) {
 		const request = context.switchToHttp().getRequest<Request>();
-		const user = request.user as User;
-		const dbUser = await this.userService.getUserByEmail(user.email);
-		user.image = dbUser.image;
-		user.name = dbUser.name;
-		return request.isAuthenticated();
+
+		if (request.isAuthenticated()) {
+			const user = request.user as User;
+			const dbUser = await this.userService.getUserByEmail(user.email);
+			user.image = dbUser.image;
+			user.name = dbUser.name;
+			return true;
+		}
+		return false;
 	}
 }

@@ -17,7 +17,7 @@ import { AccountFormSchema } from '@/utils/validation/FormSchemas';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { uploadImage } from '@/utils/api/upload/uploadImage';
+import { updateUser } from '@/utils/api/users/updateUser';
 
 export function AccountForm() {
 	const form = useForm<AccountSchemaType>({
@@ -28,11 +28,11 @@ export function AccountForm() {
 		}
 	});
 	const { mutate } = useMutation({
-		mutationKey: ['upload-image'],
-		mutationFn: uploadImage
+		mutationKey: ['update-profile'],
+		mutationFn: updateUser
 	});
 	function onSubmit(data: AccountSchemaType) {
-		mutate(data.image?.name);
+		mutate(data);
 	}
 
 	return (
@@ -45,7 +45,7 @@ export function AccountForm() {
 						<FormItem>
 							<FormLabel>Profile Name</FormLabel>
 							<FormControl>
-								<Input placeholder="Name" {...field} />
+								<Input placeholder="Name" {...field} type="text" />
 							</FormControl>
 							<FormDescription>
 								This is the name that will be displayed on your profile

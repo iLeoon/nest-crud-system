@@ -1,7 +1,7 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { updateSchema } from '@/utils/validation/FormSchemas';
-import { type updateSchemaType } from '@/utils/types';
+import React, { useEffect } from 'react';
+import { updateProductSchema } from '@/utils/validation/FormSchemas';
+import { type UpdateProductSchemaType } from '@/utils/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -27,13 +27,13 @@ import { updateProduct } from '@/utils/api/products/updateProduct';
 
 type Props = {
 	id: number;
-	data?: updateSchemaType;
+	data?: UpdateProductSchemaType;
 };
 
 export default function UpdateForm({ id, data }: Props) {
-	const form = useForm<updateSchemaType>({
+	const form = useForm<UpdateProductSchemaType>({
 		mode: 'onChange',
-		resolver: zodResolver(updateSchema),
+		resolver: zodResolver(updateProductSchema),
 		defaultValues: {
 			product_name: data?.product_name,
 			unit_price: data?.unit_price,
@@ -45,7 +45,7 @@ export default function UpdateForm({ id, data }: Props) {
 		mutationKey: ['update-product'],
 		mutationFn: updateProduct
 	});
-	const onSubmit = (values: updateSchemaType) => {
+	const onSubmit = (values: UpdateProductSchemaType) => {
 		mutate({ values, id });
 	};
 	useEffect(() => {
