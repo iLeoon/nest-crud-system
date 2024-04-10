@@ -54,9 +54,12 @@ export class UsersController {
 				)
 				.addMaxSizeValidator({
 					maxSize: ACCEPTED_MAX_IMAGE_SIZE,
-					message: 'File size should be less than 2mb.',
+					message: 'File size should be less than 2mb',
 				})
-				.build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
+				.build({
+					errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+					fileIsRequired: false,
+				}),
 		)
 		image: Express.Multer.File,
 		@Body() { username }: UpdateUserDto,

@@ -7,9 +7,7 @@ export const updateUser = async (data: UpdateUserData) => {
 	formData.append('username', data.username);
 	try {
 		await apiFetch.patch('/users/update', formData);
-	} catch (e) {
-		throw new Error(
-			`An error occured while trying to upload the image to the server.`
-		);
+	} catch (e: any) {
+		return { status: 'failed', error: e.response.data.message };
 	}
 };

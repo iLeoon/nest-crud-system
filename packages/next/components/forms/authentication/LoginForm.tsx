@@ -11,7 +11,7 @@ import {
 	Form,
 	FormField,
 	FormItem,
-	FormMessage,
+	FormMessage
 } from '@/components/ui/form';
 
 import { useForm } from 'react-hook-form';
@@ -34,8 +34,7 @@ export function UserAuthForm() {
 
 	const onSubmit = async (values: LoginSchemaType) => {
 		const res = await loginAuth(values);
-		console.log(res.error);
-		if (res.message === 'faild') {
+		if (res.message === 'failed') {
 			return form.setError('email', { message: res.error });
 		}
 		router.push('/products');
