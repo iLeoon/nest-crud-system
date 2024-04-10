@@ -2,6 +2,9 @@ import {
 	Body,
 	Controller,
 	Get,
+	HttpStatus,
+	ParseFilePipeBuilder,
+	Patch,
 	Post,
 	UploadedFile,
 	UseGuards,
@@ -16,7 +19,10 @@ import { AuthUser } from 'src/decorators/authuser.decorator';
 import { User } from 'src/entities/Users';
 import { UploadService } from 'src/upload/upload.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CustomUploadFileTypeValidator } from 'src/upload/upload.validator';
 
+const ACCEPTED_IMAGE_TYPES = ['image/png, image/jpg', 'image/jpeg'];
+const ACCEPTED_MAX_IMAGE_SIZE = 1024 * 1024 * 2;
 @UseGuards(AuthenticatedGuard)
 @UseInterceptors(LoggerInterceptor)
 @Controller('users')
@@ -36,18 +42,36 @@ export class UsersController {
 		return 'User created succ!';
 	}
 
-	@Post('/update')
+	@Patch('/update')
 	@UseInterceptors(FileInterceptor('image'))
 	async uploadProfileImage(
-		@UploadedFile() image: Express.Multer.File,
-		@Body() data: UpdateUserDto,
+		@UploadedFile(
+			new ParseFilePipeBuilder()
+				.addValidator(
+					new CustomUploadFileTypeValidator({
+						fileType: ACCEPTED_IMAGE_TYPES,
+					}),
+				)
+				.addMaxSizeValidator({
+					maxSize: ACCEPTED_MAX_IMAGE_SIZE,
+					message: 'File size should be less than 2mb.',
+				})
+				.build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
+		)
+		image: Express.Multer.File,
+		@Body() { username }: UpdateUserDto,
 		@AuthUser() user: User,
 	) {
-		await this.uploadService.uploadImage(image, user);
-		await this.usersService.updateUser(user, {
-			image: image.originalname,
-			username: data.username,
-		});
+		if (image) {
+			await this.uploadService.uploadImage(image, user);
+			await this.usersService.updateUserImage(user, image.originalname);
+		}
+
+		if (username) {
+			await this.usersService.updateUser(user, {
+				username,
+			});
+		}
 	}
 
 	@Get('/getuser')

@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
+	@IsOptional()
 	@IsString()
 	username: string;
 }

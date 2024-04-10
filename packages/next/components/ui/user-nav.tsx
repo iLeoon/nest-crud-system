@@ -19,7 +19,9 @@ export function UserNav({ email, name, image }: GetUserData) {
 				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
 					<Avatar className="h-8 w-8">
 						<AvatarImage src={image} alt="@shadcn" />
-						<AvatarFallback>SC</AvatarFallback>
+						<AvatarFallback>
+							{!image ? name?.slice(0, 1).toUpperCase() : ''}
+						</AvatarFallback>
 					</Avatar>
 				</Button>
 			</DropdownMenuTrigger>

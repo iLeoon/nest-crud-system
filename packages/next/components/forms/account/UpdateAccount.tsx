@@ -32,6 +32,7 @@ export function AccountForm() {
 		mutationFn: updateUser
 	});
 	function onSubmit(data: AccountSchemaType) {
+		console.log(data)
 		mutate(data);
 	}
 

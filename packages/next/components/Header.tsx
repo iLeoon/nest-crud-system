@@ -12,7 +12,6 @@ export default function Header() {
 		queryKey: ['get-profileData'],
 		queryFn: async () => getImage()
 	});
-	console.log(data);
 	return (
 		<div className="">
 			<div className="border-b">

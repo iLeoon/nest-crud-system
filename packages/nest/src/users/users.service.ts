@@ -13,7 +13,6 @@ import { CreateUserDto } from './dto/create-users.dto';
 import { UploadService } from 'src/upload/upload.service';
 
 type UpdateUserData = {
-	image: string;
 	username: string;
 };
 
@@ -49,7 +48,14 @@ export class UsersService {
 	async updateUser(user: User, data: UpdateUserData) {
 		await this.userRepo.updateOne(
 			{ _id: new ObjectId(user._id) },
-			{ $set: { image: `${data.image}${user._id}`, name: data.username } },
+			{ $set: { name: data.username } },
+		);
+	}
+
+	async updateUserImage(user: User, image: string) {
+		await this.userRepo.updateOne(
+			{ _id: new ObjectId(user._id) },
+			{ $set: { image: `${image}${user._id}` } },
 		);
 	}
 

@@ -46,6 +46,6 @@ export const createProductSchema = z
 export const updateProductSchema = createProductSchema;
 
 export const AccountFormSchema = z.object({
-	username: z.string(),
-	image: z.instanceof(File)
+	username: z.string().optional(),
+	image: z.instanceof(File).optional()
 });
