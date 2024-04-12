@@ -27,14 +27,16 @@ export function AccountForm() {
 			image: new File([], '')
 		}
 	});
-	const { mutate, error } = useMutation({
+	const { mutate, data } = useMutation({
 		mutationKey: ['update-profile'],
 		mutationFn: updateUser
 	});
-	function onSubmit(data: AccountSchemaType) {
-		console.log(data);
-		console.log(error);
-		mutate(data);
+	function onSubmit(values: AccountSchemaType) {
+		console.log(data)
+		if (data?.message === 'failed') {
+			form.setError('image', { message: data?.error });
+		}
+		mutate(values);
 	}
 
 	return (

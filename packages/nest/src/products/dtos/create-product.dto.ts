@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class createProductDTO {
+export class CreateProductDto {
 	@IsNotEmpty()
 	@IsString()
 	product_name: string;
@@ -14,5 +14,3 @@ export class createProductDTO {
 	@IsNumber()
 	units_in_stock: number;
 }
-
-export class updateProductDTO extends createProductDTO {}

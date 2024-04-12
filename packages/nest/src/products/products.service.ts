@@ -1,9 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-	createProductDTO,
-	updateProductDTO,
-} from 'src/products/dtos/products.dto';
+import { CreateProductDto } from './dtos/create-product.dto';
+import { UpdateProductDto } from './dtos/update-product.dto';
 import { Product } from '../entities/Products';
 import { Repository } from 'typeorm';
 import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
@@ -37,12 +35,12 @@ export class ProductsService {
 		);
 	}
 
-	async createProduct(data: createProductDTO): Promise<createProductDTO> {
+	async createProduct(data: CreateProductDto): Promise<CreateProductDto> {
 		const newProduct = this.productsRepo.create(data);
 		return await this.productsRepo.save(newProduct);
 	}
 
-	updateProduct(id: number, data: updateProductDTO) {
+	updateProduct(id: number, data: UpdateProductDto) {
 		return this.productsRepo.update(id, data);
 	}
 

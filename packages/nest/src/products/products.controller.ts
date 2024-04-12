@@ -13,11 +13,12 @@ import {
 	UseInterceptors,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { createProductDTO, updateProductDTO } from './dtos/products.dto';
+import { CreateProductDto } from './dtos/create-product.dto';
 import { Roles } from '../decorators/products.decorator';
 import { ProductsGuard } from '../../guards/products.guard';
 import { AuthenticatedGuard } from 'guards/auth.guard';
-import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
+import { LoggerInterceptor } from 'src/interceptors/logger.interceptor';
+import { UpdateProductDto } from './dtos/update-product.dto';
 @Controller('products')
 @UseInterceptors(LoggerInterceptor)
 @UseGuards(AuthenticatedGuard, ProductsGuard)
@@ -40,7 +41,7 @@ export class ProductsController {
 	@Post('create')
 	async create(
 		@Body()
-		productData: createProductDTO,
+		productData: CreateProductDto,
 	) {
 		await this.productservice.createProduct(productData);
 	}
@@ -48,7 +49,7 @@ export class ProductsController {
 	@Put('update/:id')
 	update(
 		@Param('id', ParseIntPipe) id: number,
-		@Body() productData: updateProductDTO,
+		@Body() productData: UpdateProductDto,
 	) {
 		return this.productservice.updateProduct(id, productData);
 	}

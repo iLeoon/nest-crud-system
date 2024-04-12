@@ -5,7 +5,7 @@ import { Product } from './entities/Products';
 import { UsersModule } from './users/users.module';
 import { User } from './entities/Users';
 import { AuthModule } from './auth/auth.module';
-import { LoggerMiddelWare } from './middelware/logging.middelware';
+import { LoggerMiddelWare } from './middelwares/logger.middelware';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';

@@ -8,7 +8,7 @@ import {
 	Res,
 } from '@nestjs/common';
 import { SessionGuard } from '../../guards/session.guard';
-import { LoggerInterceptor } from 'src/interceptors/logging.interceptor';
+import { LoggerInterceptor } from 'src/interceptors/logger.interceptor';
 import { AuthenticatedGuard } from '../../guards/auth.guard';
 @UseInterceptors(LoggerInterceptor)
 @Controller('auth')
