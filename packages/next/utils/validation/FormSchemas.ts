@@ -1,5 +1,6 @@
 import z from 'zod';
 import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/constants';
+import { fileTypeFromBuffer } from 'file-type';
 
 export const LoginFormSchema = z.object({
 	email: z
@@ -46,6 +47,10 @@ export const createProductSchema = z
 export const updateProductSchema = createProductSchema;
 
 export const AccountFormSchema = z.object({
-	username: z.string().optional(),
+	username: z
+		.string()
+		.regex(/[^a-zA-Z0-9]/)
+		.optional()
+		.or(z.literal('')),
 	image: z.instanceof(File).optional()
 });

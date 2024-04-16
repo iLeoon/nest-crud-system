@@ -18,29 +18,44 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '@/utils/api/users/updateUser';
+import { Icons } from '@/components/ui/icons';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 export function AccountForm() {
 	const form = useForm<AccountSchemaType>({
 		resolver: zodResolver(AccountFormSchema),
 		defaultValues: {
 			username: '',
-			image: new File([], '')
+			image: undefined
 		}
 	});
-	const { mutate, data } = useMutation({
+	const { mutate, isPending, data } = useMutation({
 		mutationKey: ['update-profile'],
 		mutationFn: updateUser
 	});
 	function onSubmit(values: AccountSchemaType) {
-		console.log(data)
-		if (data?.message === 'failed') {
-			form.setError('image', { message: data?.error });
-		}
-		mutate(values);
+		mutate(values, {
+			onSuccess(data) {
+				if (data.message === 'failed') {
+					form.setError('image', { message: data.error });
+				}
+			}
+		});
+		form.reset();
 	}
 
 	return (
 		<Form {...form}>
+			{data?.message === 'success' && (
+				<Alert variant="default" className="absolute top-0 left-0">
+					<AlertCircle className="h-4 w-4" />
+					<AlertTitle>Error</AlertTitle>
+					<AlertDescription>
+						Your session has expired. Please log in again.
+					</AlertDescription>
+				</Alert>
+			)}
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 				<FormField
 					control={form.control}
@@ -52,7 +67,7 @@ export function AccountForm() {
 								<Input placeholder="Name" {...field} type="text" />
 							</FormControl>
 							<FormDescription>
-								This is the name that will be displayed on your profile
+								This is the name that will be displayed on your profile.
 							</FormDescription>
 							<FormMessage />
 						</FormItem>
@@ -73,12 +88,18 @@ export function AccountForm() {
 									}
 								/>
 							</FormControl>
+							<FormDescription>
+								This is the image that will be displayed on your profile.
+							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 
-				<Button type="submit">Update account</Button>
+				<Button type="submit" disabled={!form.formState.isDirty || isPending}>
+					{isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+					Update account
+				</Button>
 			</form>
 		</Form>
 	);

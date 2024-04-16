@@ -3,14 +3,14 @@
 import React from 'react';
 import { MainNav } from '@/components/ui/nav';
 import { UserNav } from '@/components/ui/user-nav';
-import type { GetUserData } from '@/utils/types';
-import { getImage } from '@/utils/api/upload/getImage';
+import type { AuthUserType } from '@/utils/types';
+import { getAuthUser } from '@/utils/api/users/getAuthUser';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Header() {
-	const { data } = useQuery<GetUserData>({
-		queryKey: ['get-profileData'],
-		queryFn: async () => getImage()
+	const { data } = useQuery<AuthUserType>({
+		queryKey: ['get-userData'],
+		queryFn: async () => getAuthUser()
 	});
 	return (
 		<div className="">

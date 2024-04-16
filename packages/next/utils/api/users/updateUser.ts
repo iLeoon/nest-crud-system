@@ -1,12 +1,18 @@
-import type { UpdateUserData } from '@/utils/types';
+import type { UpdateAuthUserType } from '@/utils/types';
 import apiFetch from '../config';
 
-export const updateUser = async (data: UpdateUserData) => {
+export const updateUser = async (data: UpdateAuthUserType) => {
 	try {
 		const formData = new FormData();
-		formData.append('image', data.image!);
-		formData.append('username', data.username!);
+		if (data.image) {
+			formData.append('image', data.image);
+		}
+
+		if (data.username) {
+			formData.append('username', data.username);
+		}
 		await apiFetch.patch('/users/update', formData);
+		return { message: 'success' };
 	} catch (e: any) {
 		return { message: 'failed', error: e.response.data.message };
 	}
