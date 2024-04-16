@@ -10,8 +10,10 @@ import { useQuery } from '@tanstack/react-query';
 export default function Header() {
 	const { data } = useQuery<AuthUserType>({
 		queryKey: ['get-userData'],
-		queryFn: async () => getAuthUser()
+		queryFn: async () => getAuthUser(),
+		refetchOnWindowFocus: false
 	});
+	console.log(data);
 	return (
 		<div className="">
 			<div className="border-b">

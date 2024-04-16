@@ -1,9 +1,9 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
-import { Product } from './entities/Products';
+import { Product } from './entities/Product';
 import { UsersModule } from './users/users.module';
-import { User } from './entities/Users';
+import { User } from './entities/User';
 import { AuthModule } from './auth/auth.module';
 import { LoggerMiddelWare } from './middelwares/logger.middelware';
 import { ConfigModule } from '@nestjs/config';

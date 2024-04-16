@@ -1,6 +1,4 @@
 import z from 'zod';
-import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from '@/constants';
-import { fileTypeFromBuffer } from 'file-type';
 
 export const LoginFormSchema = z.object({
 	email: z

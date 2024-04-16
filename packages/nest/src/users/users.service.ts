@@ -5,7 +5,7 @@ import {
 	Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/Users';
+import { User } from '../entities/User';
 import { MongoRepository } from 'typeorm';
 import { encodePassword } from 'src/utils/hashing';
 import { ObjectId } from 'mongodb';
@@ -60,7 +60,10 @@ export class UsersService {
 	}
 
 	async fetchUserData(user: User) {
-		const { imageUrl } = await this.uploadService.getImage(user);
-		return { email: user.email, name: user.name, image: imageUrl };
+		if (user.image) {
+			const { imageUrl } = await this.uploadService.getImage(user);
+			return { email: user.email, name: user.name, image: imageUrl };
+		}
+		return { email: user.email, name: user.name, image: null };
 	}
 }

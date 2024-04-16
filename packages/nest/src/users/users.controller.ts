@@ -16,7 +16,7 @@ import { AuthenticatedGuard } from 'guards/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logger.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthUser } from 'src/decorators/authuser.decorator';
-import { User } from 'src/entities/Users';
+import { User } from 'src/entities/User';
 import { UploadService } from 'src/upload/upload.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CustomUploadFileTypeValidator } from 'src/upload/upload.validator';
