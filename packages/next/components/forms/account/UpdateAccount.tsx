@@ -48,7 +48,7 @@ export function AccountForm() {
 	return (
 		<Form {...form}>
 			{data?.message === 'success' && (
-				<Alert variant="default" className="absolute top-0 left-0">
+				<Alert variant="default" className="absolute top-0 left-0 w-[50%]">
 					<AlertCircle className="h-4 w-4" />
 					<AlertTitle>Error</AlertTitle>
 					<AlertDescription>
@@ -81,7 +81,6 @@ export function AccountForm() {
 							<FormLabel>Profile Image</FormLabel>
 							<FormControl>
 								<Input
-									accept=".jpg, .jpeg, .png"
 									type="file"
 									onChange={(e) =>
 										field.onChange(e.target.files ? e.target.files[0] : null)
