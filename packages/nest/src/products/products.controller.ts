@@ -15,8 +15,8 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { Roles } from '../decorators/products.decorator';
-import { ProductsGuard } from '../../guards/products.guard';
-import { AuthenticatedGuard } from 'guards/auth.guard';
+import { ProductsGuard } from '../guards/products.guard';
+import { AuthenticatedGuard } from 'src/guards/auth.guard';
 import { LoggerInterceptor } from 'src/interceptors/logger.interceptor';
 import { UpdateProductDto } from './dtos/update-product.dto';
 @Controller('products')
