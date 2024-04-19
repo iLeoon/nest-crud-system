@@ -1,13 +1,17 @@
-import { type productsResponse } from '@/utils/types';
+import { type Product } from '@/utils/types';
 import apiFetch from '../config';
+import { cookies } from 'next/headers';
 
-export const getProducts = async (pageNumber: number) => {
+export const getProducts = async () => {
 	try {
-		const res = await apiFetch.get<productsResponse>(
-			`/products?page=${pageNumber}&limit=5`
-		);
+		const cookie = cookies().toString();
+		const res = await apiFetch.get<Product[]>(`products`, {
+			headers: {
+				Cookie: cookie
+			}
+		});
 
-		return res.data;
+		return res?.data;
 	} catch (e) {
 		throw new Error(`An error occured while trying to fetch the products.`);
 	}

@@ -13,7 +13,6 @@ export default function Header() {
 		queryFn: async () => getAuthUser(),
 		refetchOnWindowFocus: false
 	});
-	console.log(data);
 	return (
 		<div className="">
 			<div className="border-b">

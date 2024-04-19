@@ -4,7 +4,6 @@ import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 import { Product } from '../entities/Product';
 import { Repository } from 'typeorm';
-import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class ProductsService {
@@ -13,15 +12,8 @@ export class ProductsService {
 		private productsRepo: Repository<Product>,
 	) {}
 
-	allProducts(): Promise<Product[]> {
-		const products = this.productsRepo.find();
-		if (products) {
-			return products;
-		}
-		throw new HttpException(
-			'Error occured when fetching products',
-			HttpStatus.BAD_REQUEST,
-		);
+	async allProducts() {
+		return await this.productsRepo.find();
 	}
 
 	async byid(id: number): Promise<Product> {
@@ -46,11 +38,5 @@ export class ProductsService {
 
 	deleteProduct(id: number) {
 		return this.productsRepo.delete(id);
-	}
-
-	async paginate(options: IPaginationOptions) {
-		const queryBuilder = this.productsRepo.createQueryBuilder('p');
-		queryBuilder.orderBy('p.product_id', 'ASC');
-		return await paginate<Product>(queryBuilder, options);
 	}
 }

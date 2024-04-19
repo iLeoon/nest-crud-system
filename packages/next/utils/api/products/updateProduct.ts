@@ -1,11 +1,11 @@
-import type { updateSchemaType } from '@/utils/types';
+import type { UpdateProductSchemaType } from '@/utils/types';
 import apiFetcher from '../config';
 
 export async function updateProduct({
 	values,
 	id
 }: {
-	values: updateSchemaType;
+	values: UpdateProductSchemaType;
 	id: number;
 }) {
 	try {

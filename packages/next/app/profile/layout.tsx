@@ -22,6 +22,10 @@ const sidebarNavItems = [
 		title: 'Appearance',
 		href: '/profile/appearance'
 	},
+	{
+		title: 'Users',
+		href: '/profile/users'
+	}
 ];
 
 interface SettingsLayoutProps {
