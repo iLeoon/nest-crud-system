@@ -9,7 +9,6 @@ import {
 	Put,
 	UseGuards,
 	UseInterceptors,
-	Req
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dtos/create-product.dto';
@@ -26,7 +25,7 @@ export class ProductsController {
 	constructor(private productservice: ProductsService) {}
 	@Roles(['admin'])
 	@Get()
-	async getProducts(@Req() request) {
+	async getProducts() {
 		return await this.productservice.allProducts();
 	}
 	@Get(':id')

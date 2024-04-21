@@ -7,16 +7,14 @@ import { Product } from '@/utils/types';
 
 export const columns: ColumnDef<Product>[] = [
 	{
-		accessorKey: 'id',
-		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Id" />
-		),
-		cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
+		accessorKey: 'product_id',
+		header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
+		cell: ({ row }) => <div className="w-[80px]">{row.index + 1}</div>,
 		enableSorting: false,
 		enableHiding: false
 	},
 	{
-		accessorKey: 'Product Name',
+		accessorKey: 'product_name',
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="Product Name" />
 		),
@@ -31,24 +29,24 @@ export const columns: ColumnDef<Product>[] = [
 		}
 	},
 	{
-		accessorKey: 'Unit Price',
+		accessorKey: 'unit_price',
 		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Price" />
+			<DataTableColumnHeader column={column} title="Unit Price" />
 		),
 		cell: ({ row }) => {
 			return (
 				<div className="flex space-x-2">
 					<span className="max-w-[500px] truncate font-medium">
-						{row.getValue('unit_price')}
+						{row.getValue('unit_price')}$
 					</span>
 				</div>
 			);
 		}
 	},
 	{
-		accessorKey: 'Stock',
+		accessorKey: 'units_in_stock',
 		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Priority" />
+			<DataTableColumnHeader column={column} title="Units In Stock" />
 		),
 		cell: ({ row }) => {
 			return (
@@ -58,10 +56,10 @@ export const columns: ColumnDef<Product>[] = [
 					</span>
 				</div>
 			);
-		},
+		}
 	},
 	{
 		id: 'actions',
-		cell: ({ row }) => <DataTableRowActions/>
+		cell: ({ row }) => <DataTableRowActions data={row.original} />
 	}
 ];
