@@ -23,6 +23,7 @@ import {
 import { deleteProduct } from '@/utils/api/products/deleteProduct';
 import { Product } from '@/utils/types';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 type DataTableRowActionsProps = {
 	data: Product;
@@ -42,7 +43,9 @@ export function DataTableRowActions({ data }: DataTableRowActionsProps) {
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end" className="w-[160px]">
-					<DropdownMenuItem>Edit</DropdownMenuItem>
+					<Link href={`products/update/${data.product_id}`}>
+						<DropdownMenuItem>Edit</DropdownMenuItem>
+					</Link>
 
 					<AlertDialogTrigger className=" w-full">
 						<DropdownMenuItem>Delete</DropdownMenuItem>

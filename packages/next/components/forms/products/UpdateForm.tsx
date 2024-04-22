@@ -25,12 +25,12 @@ import {
 } from '@/components/ui/card';
 import { updateProduct } from '@/utils/api/products/updateProduct';
 
-type Props = {
+type UpdateFormProps = {
 	id: number;
 	data?: UpdateProductSchemaType;
 };
 
-export default function UpdateForm({ id, data }: Props) {
+export default function UpdateForm({ id, data }: UpdateFormProps) {
 	const form = useForm<UpdateProductSchemaType>({
 		mode: 'onChange',
 		resolver: zodResolver(updateProductSchema),

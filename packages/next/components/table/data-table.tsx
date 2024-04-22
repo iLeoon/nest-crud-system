@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
 	ColumnDef,
 	ColumnFiltersState,
@@ -26,23 +26,27 @@ import {
 } from '@/components/ui/table';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '@/utils/api/products/getProducts';
+import { Product } from '@/utils/types';
 
-interface DataTableProps<TData, TValue> {
-	columns: ColumnDef<TData, TValue>[];
-	data: TData[];
+interface DataTableProps<TValue> {
+	columns: ColumnDef<Product, TValue>[];
 }
 
-export function DataTable<TData, TValue>({
-	columns,
-	data
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TValue>({ columns }: DataTableProps<TValue>) {
+	const [dataTable, setDataTable] = useState<Product[]>();
 	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] =
 		React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
+	const { data, isSuccess } = useQuery({
+		queryKey: ['get-products'],
+		queryFn: async () => getProducts()
+	});
 	const table = useReactTable({
-		data,
+		data: isSuccess ? data : [],
 		columns,
 		state: {
 			sorting,

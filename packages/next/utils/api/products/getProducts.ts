@@ -1,15 +1,9 @@
 import { type Product } from '@/utils/types';
 import apiFetch from '../config';
-import { cookies } from 'next/headers';
 
 export const getProducts = async () => {
 	try {
-		const cookie = cookies().toString();
-		const res = await apiFetch.get<Product[]>(`products`, {
-			headers: {
-				Cookie: cookie
-			}
-		});
+		const res = await apiFetch.get<Product[]>(`products`);
 
 		return res?.data;
 	} catch (e) {
