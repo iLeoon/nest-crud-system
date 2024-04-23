@@ -22,14 +22,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { deleteProduct } from '@/utils/api/products/deleteProduct';
 import { Product } from '@/utils/types';
-import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 
 type DataTableRowActionsProps = {
 	data: Product;
 };
 export function DataTableRowActions({ data }: DataTableRowActionsProps) {
-	const router = useRouter();
+	const query = useQueryClient();
 	return (
 		<AlertDialog>
 			<DropdownMenu>
@@ -66,7 +66,9 @@ export function DataTableRowActions({ data }: DataTableRowActionsProps) {
 						type="button"
 						onClick={async () => {
 							await deleteProduct(data.product_id);
-							router.refresh();
+							await query.fetchQuery({
+								queryKey: ['get-products']
+							});
 						}}
 					>
 						Continue

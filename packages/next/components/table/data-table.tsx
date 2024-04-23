@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
 	ColumnDef,
 	ColumnFiltersState,
@@ -35,7 +35,6 @@ interface DataTableProps<TValue> {
 }
 
 export function DataTable<TValue>({ columns }: DataTableProps<TValue>) {
-	const [dataTable, setDataTable] = useState<Product[]>();
 	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] =
 		React.useState<VisibilityState>({});

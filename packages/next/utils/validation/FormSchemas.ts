@@ -21,7 +21,7 @@ export const createProductSchema = z
 				invalid_type_error: '* Product name must be a string'
 			})
 			.min(5, '* Product name must not be less than 5 letters')
-			.max(30, '* Product name must not be more than 20 letters'),
+			.max(100, '* Product name must not be more than 20 letters'),
 		unit_price: z.coerce
 			.number({
 				required_error: "* Product price can't be empty",
@@ -38,7 +38,7 @@ export const createProductSchema = z
 				3000,
 				'* Amount of product in stock must not exceed 3000 pieces per product'
 			)
-			.positive('* Amount of product in stock must be a postive number')
+			.min(0, '* Amount of product in stock must be a postive number')
 	})
 	.strict();
 
