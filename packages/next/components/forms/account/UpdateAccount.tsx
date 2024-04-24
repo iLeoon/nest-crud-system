@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	FormControl,
 	Form,
@@ -17,11 +17,9 @@ import { AccountFormSchema } from '@/utils/validation/FormSchemas';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { updateUser } from '@/utils/api/users/updateUser';
+import { toastid, updateUser } from '@/utils/api/users/updateUser';
 import { Icons } from '@/components/ui/icons';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
-
+import { toast } from 'sonner';
 export function AccountForm() {
 	const form = useForm<AccountSchemaType>({
 		resolver: zodResolver(AccountFormSchema),
@@ -47,15 +45,6 @@ export function AccountForm() {
 
 	return (
 		<Form {...form}>
-			{data?.message === 'success' && (
-				<Alert variant="default" className="absolute top-0 left-0 w-[50%]">
-					<AlertCircle className="h-4 w-4" />
-					<AlertTitle>Error</AlertTitle>
-					<AlertDescription>
-						Your session has expired. Please log in again.
-					</AlertDescription>
-				</Alert>
-			)}
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 				<FormField
 					control={form.control}
@@ -95,7 +84,13 @@ export function AccountForm() {
 					)}
 				/>
 
-				<Button type="submit" disabled={!form.formState.isDirty || isPending}>
+				<Button
+					type="submit"
+					disabled={!form.formState.isDirty || isPending}
+					onClick={() => {
+						toast.dismiss(toastid);
+					}}
+				>
 					{isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
 					Update account
 				</Button>
