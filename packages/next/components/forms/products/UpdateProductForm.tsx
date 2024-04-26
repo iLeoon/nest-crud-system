@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import { updateProductSchema } from '@/utils/validation/FormSchemas';
+import { UpdateProductSchema } from '@/utils/validation/FormSchemas';
 import { type UpdateProductSchemaType } from '@/utils/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,9 +11,10 @@ import {
 	FormItem,
 	FormMessage,
 	FormLabel
-} from '../../ui/form';
-import { Button } from '../../ui/button';
-import { Input } from '../../ui/input';
+} from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Icons } from '@/components/ui/icons';
 import { useMutation } from '@tanstack/react-query';
 import { DisplayAlert } from '../../Alert';
 import {
@@ -33,7 +34,7 @@ type UpdateFormProps = {
 export default function UpdateProductForm({ id, data }: UpdateFormProps) {
 	const form = useForm<UpdateProductSchemaType>({
 		mode: 'onChange',
-		resolver: zodResolver(updateProductSchema),
+		resolver: zodResolver(UpdateProductSchema),
 		defaultValues: {
 			product_name: data?.product_name,
 			unit_price: data?.unit_price,
@@ -41,7 +42,7 @@ export default function UpdateProductForm({ id, data }: UpdateFormProps) {
 		}
 	});
 
-	const { mutate, isSuccess } = useMutation({
+	const { mutate, isSuccess, isPending } = useMutation({
 		mutationKey: ['update-product'],
 		mutationFn: updateProduct
 	});
@@ -127,6 +128,9 @@ export default function UpdateProductForm({ id, data }: UpdateFormProps) {
 							type="submit"
 							className="mx-5 my-5"
 						>
+							{isPending && (
+								<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+							)}
 							Submit
 						</Button>
 					</form>

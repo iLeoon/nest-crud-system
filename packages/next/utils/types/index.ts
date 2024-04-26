@@ -1,13 +1,15 @@
 import z from 'zod';
 import {
 	AccountFormSchema,
-	createProductSchema,
+	CreateProductSchema,
+	CreateUserFormSchema,
 	LoginFormSchema,
-	updateProductSchema
+	UpdateProductSchema
 } from '../validation/FormSchemas';
 import { AlertProps } from '@mui/material';
 
 export type User = {
+	_id: string;
 	email: string;
 	name: string;
 	roles: string[];
@@ -34,10 +36,11 @@ export type productsResponse = {
 	meta: paginationOps;
 };
 
-export type CreateProductSchemaType = z.infer<typeof createProductSchema>;
-export type UpdateProductSchemaType = z.infer<typeof updateProductSchema>;
+export type CreateProductSchemaType = z.infer<typeof CreateProductSchema>;
+export type UpdateProductSchemaType = z.infer<typeof UpdateProductSchema>;
 export type LoginSchemaType = z.infer<typeof LoginFormSchema>;
 export type AccountSchemaType = z.infer<typeof AccountFormSchema>;
+export type CreateUserSchemaType = z.infer<typeof CreateUserFormSchema>;
 
 export type attributes = { message: string } & AlertProps;
 

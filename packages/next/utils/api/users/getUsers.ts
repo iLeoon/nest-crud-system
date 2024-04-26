@@ -1,9 +1,9 @@
 import type { User } from '@/utils/types';
 import apiFetch from '../config';
 
-export const getAuthUser = async () => {
+export const getUsers = async () => {
 	try {
-		const res = await apiFetch.get<User>('/users');
+		const res = await apiFetch.get<User[]>('/users');
 		return res.data;
 	} catch (e) {
 		throw new Error(

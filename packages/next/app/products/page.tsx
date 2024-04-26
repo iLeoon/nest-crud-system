@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '@/components/Header';
-import { DataTable } from '@/components/products-table/data-table';
-import { columns } from '@/components/products-table/columns';
+import { DataTable } from '@/components/ui/products-table/data-table';
+import { columns } from '@/components/ui/products-table/columns';
 
 export default async function Products() {
 	return (

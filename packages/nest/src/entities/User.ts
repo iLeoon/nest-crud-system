@@ -18,5 +18,5 @@ export class User {
 	image?: string;
 
 	@Column()
-	roles: string[];
+	roles: string;
 }

@@ -1,8 +1,8 @@
 export function checkRoles(
-	userRole: string[],
+	userRole: string,
 	authenticatedUserRole: any,
 ): boolean {
-	const role = userRole[0];
+	const role = userRole;
 	if (authenticatedUserRole === role) {
 		return true;
 	}

@@ -23,7 +23,7 @@ import { UpdateProductDto } from './dtos/update-product.dto';
 @UseGuards(AuthenticatedGuard, ProductsGuard)
 export class ProductsController {
 	constructor(private productservice: ProductsService) {}
-	@Roles(['admin'])
+	@Roles('admin')
 	@Get()
 	async getProducts() {
 		return await this.productservice.allProducts();
@@ -33,7 +33,7 @@ export class ProductsController {
 		const product = await this.productservice.byid(id);
 		return product;
 	}
-	@Roles(['admin'])
+	@Roles('admin')
 	@Post('create')
 	async create(
 		@Body()
@@ -52,6 +52,7 @@ export class ProductsController {
 
 	@Delete('delete/:id')
 	delete(@Param('id', ParseIntPipe) id: number) {
+		console.log(id);
 		return this.productservice.deleteProduct(id);
 	}
 }

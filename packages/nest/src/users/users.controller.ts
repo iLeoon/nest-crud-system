@@ -1,8 +1,10 @@
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	HttpStatus,
+	Param,
 	ParseFilePipeBuilder,
 	Patch,
 	Post,
@@ -20,6 +22,7 @@ import { User } from 'src/entities/User';
 import { UploadService } from 'src/upload/upload.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CustomUploadFileTypeValidator } from 'src/upload/upload.validator';
+import { ValidateMongoIdPipe } from 'pipes/validate-mongoid.pipe';
 
 const ACCEPTED_IMAGE_TYPES = ['image/png, image/jpg', 'image/jpeg'];
 const ACCEPTED_MAX_IMAGE_SIZE = 1024 * 1024 * 2;
@@ -80,5 +83,10 @@ export class UsersController {
 	@Get('/getuser')
 	async getProfileImage(@AuthUser() user: User) {
 		return await this.usersService.fetchUserData(user);
+	}
+
+	@Delete('/delete/:id')
+	async deleteUser(@Param('id', ValidateMongoIdPipe) id: string) {
+		await this.usersService.deleteUser(id);
 	}
 }

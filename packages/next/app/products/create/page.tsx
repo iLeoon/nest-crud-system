@@ -1,8 +1,8 @@
-import CreateForm from '@/components/forms/products/CreateForm';
 import * as React from 'react';
+import CreateProductForm from '@/components/forms/products/CreatePrdouctForm';
 
-function Create() {
-	return <CreateForm />;
+function CreateProduct() {
+	return <CreateProductForm />;
 }
 
-export default Create;
+export default CreateProduct;

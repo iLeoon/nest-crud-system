@@ -1,4 +1,4 @@
-import { AccountForm } from '@/components/forms/account/UpdateAccount';
+import UpdateAccountForm from '@/components/forms/account/UpdateAccountForm';
 import { Separator } from '@/components/ui/separator';
 
 export default function AccountPage() {
@@ -11,7 +11,7 @@ export default function AccountPage() {
 				</p>
 			</div>
 			<Separator />
-			<AccountForm />
+			<UpdateAccountForm />
 		</div>
 	);
 }

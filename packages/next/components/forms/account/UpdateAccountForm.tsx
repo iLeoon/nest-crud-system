@@ -17,10 +17,11 @@ import { AccountFormSchema } from '@/utils/validation/FormSchemas';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { toastid, updateUser } from '@/utils/api/users/updateUser';
+import { updateAccount } from '@/utils/api/users/updateAccount';
 import { Icons } from '@/components/ui/icons';
 import { toast } from 'sonner';
-export function AccountForm() {
+export const toastid = toast('loading');
+export default function UpdateAccountForm() {
 	const form = useForm<AccountSchemaType>({
 		resolver: zodResolver(AccountFormSchema),
 		defaultValues: {
@@ -30,7 +31,7 @@ export function AccountForm() {
 	});
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['update-profile'],
-		mutationFn: updateUser
+		mutationFn: updateAccount
 	});
 	function onSubmit(values: AccountSchemaType) {
 		mutate(values, {

@@ -4,16 +4,16 @@ export const LoginFormSchema = z.object({
 	email: z
 		.string()
 		.email('Invalid email address format')
-		.min(5, 'Email must be at least 5 characters long.')
-		.max(255, 'Email cannot exceed 255 characters.'),
+		.min(5, 'Email must be at least 5 characters long')
+		.max(255, 'Email cannot exceed 255 characters'),
 
 	password: z
 		.string()
-		.min(3, 'Password must be at least 3 characters long.')
-		.max(255, 'Password cannot exceed 255 characters.')
+		.min(3, 'Password must be at least 3 characters long')
+		.max(255, 'Password cannot exceed 255 characters')
 });
 
-export const createProductSchema = z
+export const CreateProductSchema = z
 	.object({
 		product_name: z
 			.string({
@@ -42,15 +42,41 @@ export const createProductSchema = z
 	})
 	.strict();
 
-export const updateProductSchema = createProductSchema;
+export const UpdateProductSchema = CreateProductSchema;
 
 export const AccountFormSchema = z.object({
 	username: z
 		.string()
-		.regex(/[^a-zA-Z0-9]/)
+		.regex(
+			/^[A-Za-z\s]*$/,
+			'The name must not include any characters or numbers'
+		)
+		.min(5, 'The name letters must be more than 5 letters')
+		.max(20, 'Your name letters must be less than 20 letters')
 		.optional()
 		.or(z.literal('')),
 	image: z.instanceof(File).optional()
 });
 
 // fix: 0 is recognized as a non-postive number in product schema
+
+export const CreateUserFormSchema = z.object({
+	name: z
+		.string({ required_error: 'You must enter a user name' })
+		.regex(
+			/^[A-Za-z\s]*$/,
+			'The name must not include any characters or numbers'
+		)
+		.min(5, 'The name letters must be more than 5 letters')
+		.max(20, 'Your name letters must be less than 20 letters'),
+	email: z
+		.string({ required_error: 'You must enter a user email' })
+		.email('Invalid email address format')
+		.min(5, 'Email must be at least 5 characters long')
+		.max(255, 'Email cannot exceed 255 characters'),
+	password: z
+		.string({ required_error: 'You must enter a user password' })
+		.min(3, 'Password must be at least 3 characters long')
+		.max(255, 'Password cannot exceed 255 characters'),
+	roles: z.string({ required_error: 'Please select a role' })
+});

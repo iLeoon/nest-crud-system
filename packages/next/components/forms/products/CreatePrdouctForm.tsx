@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { createProductSchema } from '@/utils/validation/FormSchemas';
-import { type CreateProductSchemaType } from '@/utils/types';
+import { CreateProductSchema } from '@/utils/validation/FormSchemas';
+import type { CreateProductSchemaType } from '@/utils/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -11,9 +11,10 @@ import {
 	FormItem,
 	FormMessage,
 	FormLabel
-} from '../../ui/form';
-import { Button } from '../../ui/button';
-import { Input } from '../../ui/input';
+} from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Icons } from '@/components/ui/icons';
 import { useMutation } from '@tanstack/react-query';
 import { createProduct } from '@/utils/api/products/createProduct';
 import { DisplayAlert } from '../../Alert';
@@ -27,7 +28,7 @@ import {
 
 export default function CreateProductForm() {
 	const form = useForm<CreateProductSchemaType>({
-		resolver: zodResolver(createProductSchema)
+		resolver: zodResolver(CreateProductSchema)
 	});
 	const { mutate, isSuccess, isPending } = useMutation({
 		mutationKey: ['create-product'],
@@ -114,6 +115,9 @@ export default function CreateProductForm() {
 							)}
 						/>
 						<Button disabled={isPending} type="submit" className="mx-5 my-5">
+							{isPending && (
+								<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+							)}
 							Submit
 						</Button>
 					</form>

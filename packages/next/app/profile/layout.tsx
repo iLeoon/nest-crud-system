@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Separator } from '@/components/ui/separator';
-import { SidebarNav } from '@/components/ui/profile/side-nav';
+import { SidebarNav } from '@/components/ui/side-nav';
 
 export const metadata: Metadata = {
 	title: 'Account',

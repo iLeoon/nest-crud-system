@@ -66,4 +66,10 @@ export class UsersService {
 		}
 		return { email: user.email, name: user.name, image: null };
 	}
+
+	async deleteUser(id: string) {
+		return await this.userRepo.findOneAndDelete({
+			_id: new ObjectId(id),
+		});
+	}
 }

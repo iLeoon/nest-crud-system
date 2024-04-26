@@ -1,9 +1,9 @@
 import type { UpdateAuthUserType } from '@/utils/types';
 import { toast } from 'sonner';
 import apiFetch from '../config';
-export const toastid = toast('loading');
+import { toastid } from '@/components/forms/account/UpdateAccountForm';
 
-export const updateUser = async (data: UpdateAuthUserType) => {
+export const updateAccount = async (data: UpdateAuthUserType) => {
 	try {
 		const formData = new FormData();
 		if (data.image) {
@@ -34,4 +34,3 @@ export const updateUser = async (data: UpdateAuthUserType) => {
 		return { message: 'failed', error: e.response.data.message };
 	}
 };
-

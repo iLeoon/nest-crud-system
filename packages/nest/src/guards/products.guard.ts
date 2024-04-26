@@ -12,7 +12,7 @@ export class ProductsGuard implements CanActivate {
 			return true;
 		}
 		const request = context.switchToHttp().getRequest();
-		const user = request.user.roles[0];
+		const user = request.user.roles;
 		return checkRoles(roles, user);
 	}
 }
