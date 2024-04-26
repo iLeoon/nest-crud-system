@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	FormControl,
 	Form,
@@ -28,7 +28,7 @@ export function AccountForm() {
 			image: undefined
 		}
 	});
-	const { mutate, isPending, data } = useMutation({
+	const { mutate, isPending } = useMutation({
 		mutationKey: ['update-profile'],
 		mutationFn: updateUser
 	});

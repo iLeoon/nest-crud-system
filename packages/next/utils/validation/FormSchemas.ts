@@ -38,7 +38,7 @@ export const createProductSchema = z
 				3000,
 				'* Amount of product in stock must not exceed 3000 pieces per product'
 			)
-			.min(0, '* Amount of product in stock must be a postive number')
+			.positive('* Amount of product in stock must be a postive number')
 	})
 	.strict();
 
@@ -52,3 +52,5 @@ export const AccountFormSchema = z.object({
 		.or(z.literal('')),
 	image: z.instanceof(File).optional()
 });
+
+// fix: 0 is recognized as a non-postive number in product schema

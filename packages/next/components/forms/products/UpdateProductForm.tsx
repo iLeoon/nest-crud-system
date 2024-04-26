@@ -30,7 +30,7 @@ type UpdateFormProps = {
 	data?: UpdateProductSchemaType;
 };
 
-export default function UpdateForm({ id, data }: UpdateFormProps) {
+export default function UpdateProductForm({ id, data }: UpdateFormProps) {
 	const form = useForm<UpdateProductSchemaType>({
 		mode: 'onChange',
 		resolver: zodResolver(updateProductSchema),

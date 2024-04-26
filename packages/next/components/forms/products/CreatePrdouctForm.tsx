@@ -25,7 +25,7 @@ import {
 	CardTitle
 } from '@/components/ui/card';
 
-export default function CreateForm() {
+export default function CreateProductForm() {
 	const form = useForm<CreateProductSchemaType>({
 		resolver: zodResolver(createProductSchema)
 	});
