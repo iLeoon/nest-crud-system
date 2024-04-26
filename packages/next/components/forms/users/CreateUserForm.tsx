@@ -32,6 +32,7 @@ import { CreateUserSchemaType } from '@/utils/types';
 import { CreateUserFormSchema } from '@/utils/validation/FormSchemas';
 import { createUser } from '@/utils/api/users/createUser';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export default function CreateUserForm() {
 	const form = useForm<CreateUserSchemaType>({
@@ -39,10 +40,12 @@ export default function CreateUserForm() {
 	});
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['create-user'],
-		mutationFn: createUser
+		mutationFn: createUser,
+		onSuccess() {
+			toast.success('User created successfully.', { position: 'top-center' });
+		}
 	});
 	const onSubmit = (values: CreateUserSchemaType) => {
-		console.log(values);
 		mutate(values);
 		form.reset();
 	};
@@ -121,7 +124,7 @@ export default function CreateUserForm() {
 							control={form.control}
 							name="roles"
 							render={({ field }) => (
-								<FormItem className='w-48'>
+								<FormItem className="w-48">
 									<FormLabel className="mx-5">Role</FormLabel>
 									<Select
 										onValueChange={field.onChange}
@@ -145,7 +148,7 @@ export default function CreateUserForm() {
 							{isPending && (
 								<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
 							)}
-							Create
+							Create User
 						</Button>
 					</form>
 				</Form>

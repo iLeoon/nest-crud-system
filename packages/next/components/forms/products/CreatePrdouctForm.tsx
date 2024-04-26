@@ -17,7 +17,6 @@ import { Input } from '@/components/ui/input';
 import { Icons } from '@/components/ui/icons';
 import { useMutation } from '@tanstack/react-query';
 import { createProduct } from '@/utils/api/products/createProduct';
-import { DisplayAlert } from '../../Alert';
 import {
 	Card,
 	CardContent,
@@ -25,6 +24,7 @@ import {
 	CardHeader,
 	CardTitle
 } from '@/components/ui/card';
+import { toast } from 'sonner';
 
 export default function CreateProductForm() {
 	const form = useForm<CreateProductSchemaType>({
@@ -32,7 +32,12 @@ export default function CreateProductForm() {
 	});
 	const { mutate, isSuccess, isPending } = useMutation({
 		mutationKey: ['create-product'],
-		mutationFn: createProduct
+		mutationFn: createProduct,
+		onSuccess() {
+			toast.success('Product created successfully.', {
+				position: 'top-center'
+			});
+		}
 	});
 	const onSubmit = (values: CreateProductSchemaType) => {
 		mutate(values);
@@ -40,13 +45,6 @@ export default function CreateProductForm() {
 	};
 	return (
 		<Card className="m-5">
-			{isSuccess && (
-				<DisplayAlert
-					message={'Product created successfully'}
-					color="success"
-					severity="success"
-				/>
-			)}
 			<CardHeader>
 				<CardTitle>Create Product</CardTitle>
 				<CardDescription>

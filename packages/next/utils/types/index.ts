@@ -6,7 +6,6 @@ import {
 	LoginFormSchema,
 	UpdateProductSchema
 } from '../validation/FormSchemas';
-import { AlertProps } from '@mui/material';
 
 export type User = {
 	_id: string;
@@ -41,8 +40,6 @@ export type UpdateProductSchemaType = z.infer<typeof UpdateProductSchema>;
 export type LoginSchemaType = z.infer<typeof LoginFormSchema>;
 export type AccountSchemaType = z.infer<typeof AccountFormSchema>;
 export type CreateUserSchemaType = z.infer<typeof CreateUserFormSchema>;
-
-export type attributes = { message: string } & AlertProps;
 
 export type UpdateAuthUserType = {
 	username?: string;

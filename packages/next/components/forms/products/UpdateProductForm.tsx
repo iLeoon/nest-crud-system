@@ -16,7 +16,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Icons } from '@/components/ui/icons';
 import { useMutation } from '@tanstack/react-query';
-import { DisplayAlert } from '../../Alert';
 import {
 	Card,
 	CardContent,
@@ -25,6 +24,7 @@ import {
 	CardTitle
 } from '@/components/ui/card';
 import { updateProduct } from '@/utils/api/products/updateProduct';
+import { toast } from 'sonner';
 
 type UpdateFormProps = {
 	id: number;
@@ -44,7 +44,12 @@ export default function UpdateProductForm({ id, data }: UpdateFormProps) {
 
 	const { mutate, isSuccess, isPending } = useMutation({
 		mutationKey: ['update-product'],
-		mutationFn: updateProduct
+		mutationFn: updateProduct,
+		onSuccess() {
+			toast.success('Product updated successfully.', {
+				position: 'top-center'
+			});
+		}
 	});
 	const onSubmit = (values: UpdateProductSchemaType) => {
 		mutate({ values, id });
@@ -56,13 +61,6 @@ export default function UpdateProductForm({ id, data }: UpdateFormProps) {
 	}, [form.formState.isSubmitSuccessful]);
 	return (
 		<Card className="m-5">
-			{isSuccess && (
-				<DisplayAlert
-					message={'Product updated successfully'}
-					color="success"
-					severity="success"
-				/>
-			)}
 			<CardHeader>
 				<CardTitle>Update Product</CardTitle>
 				<CardDescription>Update the following product</CardDescription>

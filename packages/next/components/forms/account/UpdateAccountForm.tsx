@@ -16,11 +16,11 @@ import { AccountSchemaType } from '@/utils/types';
 import { AccountFormSchema } from '@/utils/validation/FormSchemas';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { dataTagSymbol, useMutation } from '@tanstack/react-query';
 import { updateAccount } from '@/utils/api/users/updateAccount';
 import { Icons } from '@/components/ui/icons';
 import { toast } from 'sonner';
-export const toastid = toast('loading');
+
 export default function UpdateAccountForm() {
 	const form = useForm<AccountSchemaType>({
 		resolver: zodResolver(AccountFormSchema),
@@ -29,7 +29,7 @@ export default function UpdateAccountForm() {
 			image: undefined
 		}
 	});
-	const { mutate, isPending } = useMutation({
+	const { mutate, isPending, isSuccess } = useMutation({
 		mutationKey: ['update-profile'],
 		mutationFn: updateAccount
 	});
@@ -37,8 +37,11 @@ export default function UpdateAccountForm() {
 		mutate(values, {
 			onSuccess(data) {
 				if (data.message === 'failed') {
-					form.setError('image', { message: data.error });
+					return form.setError('image', { message: data.error });
 				}
+				toast.success('Your profile has been updated successfully.', {
+					position: 'top-center'
+				});
 			}
 		});
 		form.reset();
@@ -85,13 +88,7 @@ export default function UpdateAccountForm() {
 					)}
 				/>
 
-				<Button
-					type="submit"
-					disabled={!form.formState.isDirty || isPending}
-					onClick={() => {
-						toast.dismiss(toastid);
-					}}
-				>
+				<Button type="submit" disabled={!form.formState.isDirty || isPending}>
 					{isPending && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
 					Update account
 				</Button>
