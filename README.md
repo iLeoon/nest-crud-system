@@ -1,67 +1,130 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# CRUD Management System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A full-stack **CRUD management system** built with **NestJS** and **Next.js**, designed with a clear separation between **authentication data** and **business data**.  
+The system follows a production-style architecture with authentication, authorization, logging, file uploads, and containerized local development.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
+---
+
+## Overview
+
+This project demonstrates how to build a secure, modular CRUD system with:
+
+- Backend APIs built using **NestJS**
+- A **Next.js dashboard** frontend
+- **PostgreSQL (Northwind schema)** for business data
+- **MongoDB** for users and session management
+- **AWS S3** for file uploads
+- **Docker Compose** for local reproducibility
+
+The focus is on **backend architecture**, **database design**, and **real-world application structure**.
+
+---
+
+## Tech Stack
+
+### Backend
+- **NestJS**
+- **PostgreSQL** (Northwind schema)
+- **MongoDB** (users & sessions)
+- **TypeORM**
+- Authentication & Authorization
+- Structured logging (middleware, interceptors)
+
+### Frontend
+- **Next.js** (dashboard application)
+- **React Query** (server-state management)
+- **Axios** (API communication)
+- **Zod** (schema-based validation)
+- **shadcn/ui** (UI components)
+
+### Infrastructure
+- **Docker**
+- **Docker Compose**
+- **AWS S3** (file uploads)
+
+---
+
+## Architecture Overview
+
+- The backend exposes **RESTful APIs** built with NestJS.
+- Authentication and authorization are enforced using guards, middleware, and interceptors.
+- Business data is stored in PostgreSQL using a relational schema.
+- User identity and session data are stored separately in MongoDB.
+- The frontend is a protected Next.js dashboard that consumes secured backend APIs.
+- Docker Compose is used to run the entire system locally.
+
+---
+
+## Data Storage Design
+
+This project uses **two databases**, each with a clear responsibility.
+
+### MongoDB
+- Stores application users
+- Persists authentication and session data
+- Used for identity-related and flexible user data
+
+### PostgreSQL
+- Stores domain and business data
+- Used for CRUD operations based on the **Northwind schema**
+- Enforces relational integrity and structured queries
+
+This separation allows authentication concerns to evolve independently from core business data.
+
+---
 
 
 
+## Authentication & Authorization
 
-## Table of Content
+- Authentication is handled on the backend using credential-based login
+- Authorization rules are enforced using NestJS guards
+- Protected API routes require valid authentication context
+- Sessions are persisted using MongoDB
 
-  - [1. Description](#description)
-  - [2. Libraries & Usages](#libraries-usages)
-  - [3. Running the app](#running)
- 
+---
 
+## File Uploads
 
-<a name="description"></a>
-## Description
-A [NestJS](https://nestjs.com/) CRUD system that contains authenication - authorization - logging with the implementation of middelwares - interceptors - filters  and more..
+- File uploads are handled by the backend
+- Uploaded files are stored in **AWS S3**
+- Metadata is managed through backend services
+---
+## Environment Configuration
 
-<a name="libraries-usages"></a>
-## Libraries & Usages
+Both the backend and frontend use **local `.env` files** for configuration.
 
-| libraries | usage
-| :---:   | :---: |
- [pg](https://www.npmjs.com/package/pg) | PostgresSQL Database for CRUD Operations|
-| [Mongodb](https://www.npmjs.com/package/mongodb) | MongoDB for persisting user's data and sessions|
-| [TypeORM](https://typeorm.io/) | The ORM used for the project|
-| [passport](https://www.passportjs.org/) | For Authentication |
-| [passport-local](https://www.passportjs.org/packages/passport-local/) | The passport's strategy |
-|[express-sessions](https://www.npmjs.com/package/express-session)  | For handling the sessions |
-|[connect-mongo](https://www.npmjs.com/package/connect-mongo) | A session's store library for MongoDB |
-| [winston](https://www.npmjs.com/package/winston) | For Logging Exceptions - Requests - Responses |
-| [bycrypt](https://www.npmjs.com/package/bcrypt) | For Hashing user's passwords |
+Each project contains its own `.env` file that must be edited before running
+the application.
 
+- The backend `.env` configures databases, authentication, sessions, and external services.
+- The frontend `.env` configures the backend API base URL and client-side settings.
 
-<a name="running"></a>
-## Running the app
+Environment files are created locally and are not committed to version control.
+
+---
+## Running the Project Locally
+
+This project uses **Docker Compose** to run the required database services.
+The backend and frontend applications are run locally on different ports.
+
+---
+
+### Start Database Services
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+docker-compose up --build
 ```
 
+### Run the Frontend 
+```bash
+cd next
+yarn install
+yarn run dev
+```
+### Run the backend
+```bash
+cd nest
+yarn install
+yarn run start:dev
+```
