@@ -115,16 +115,20 @@ The backend and frontend applications are run locally on different ports.
 ```bash
 docker-compose up --build
 ```
+### Installing Dependencies
 
+Install all dependencies for **all workspaces** with a single command:
+
+```bash
+yarn install
+```
 ### Run the Frontend 
 ```bash
 cd next
-yarn install
 yarn run dev
 ```
 ### Run the backend
 ```bash
 cd nest
-yarn install
 yarn run start:dev
 ```
