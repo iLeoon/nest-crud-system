@@ -2,9 +2,8 @@ export function checkRoles(
 	userRole: string,
 	authenticatedUserRole: any,
 ): boolean {
-	const role = userRole;
-	if (authenticatedUserRole === role) {
-		return true;
-	}
-	return false;
+	const roles: string[] = Array.isArray(authenticatedUserRole)
+		? authenticatedUserRole
+		: [authenticatedUserRole];
+	return roles.includes(userRole);
 }
