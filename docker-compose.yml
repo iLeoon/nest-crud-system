@@ -43,9 +43,12 @@ services:
       DATABASE_PASSWORD: admin
       DATABASE_NAME: northwind
       NEXT_API_URL: http://localhost:3001
+      MONGO_URI: mongodb://user:admin@mongodb:27017/test?authSource=admin
     depends_on:
       postgres:
         condition: service_healthy
+      mongodb:
+        condition: service_started
 
   next:
     build:
