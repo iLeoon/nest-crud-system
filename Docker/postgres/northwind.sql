@@ -123,5 +123,5 @@ INSERT INTO products VALUES (77, 'Original Frankfurter grüne Soße', 12, 2, '12
 -- Adding auto incrementing on product_id COLUMN
 --
 CREATE SEQUENCE public_products_id_seq OWNED BY products.product_id;
-SELECT SETVAL('public_products_id_seq', (select max(product_id) from public.products), false)
+SELECT SETVAL('public_products_id_seq', (select max(product_id) from public.products), false);
 ALTER TABLE public.products ALTER COLUMN product_id SET DEFAULT nextval('public_products_id_seq');

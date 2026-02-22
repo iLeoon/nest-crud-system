@@ -6,7 +6,7 @@ COPY packages/nest/package.json ./
 RUN yarn install
 
 COPY packages/nest ./
-RUN node_modules/.bin/nest build
+RUN node_modules/.bin/nest build && ls -la dist/
 
 # ---- Production stage ----
 FROM node:20-alpine
@@ -18,4 +18,4 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
 
 EXPOSE 3000
-CMD ["node", "dist/main"]
+CMD ["node", "dist/main.js"]
