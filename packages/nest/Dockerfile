@@ -3,7 +3,8 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 COPY packages/nest/package.json ./
-RUN yarn install
+COPY yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 COPY packages/nest ./
 RUN node_modules/.bin/nest build

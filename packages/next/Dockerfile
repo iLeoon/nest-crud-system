@@ -6,7 +6,8 @@ ARG NEXT_PUBLIC_NEST_API_URL=http://localhost:3000
 ENV NEXT_PUBLIC_NEST_API_URL=$NEXT_PUBLIC_NEST_API_URL
 
 COPY packages/next/package.json ./
-RUN yarn install
+COPY yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 COPY packages/next ./
 RUN yarn build
