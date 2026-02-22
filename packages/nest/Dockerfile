@@ -6,7 +6,7 @@ COPY packages/nest/package.json ./
 RUN yarn install
 
 COPY packages/nest ./
-RUN yarn build
+RUN node_modules/.bin/nest build
 
 # ---- Production stage ----
 FROM node:20-alpine
