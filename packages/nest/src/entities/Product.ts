@@ -13,7 +13,4 @@ export class Product {
 
 	@Column()
 	units_in_stock: number;
-
-	@Column({ default: 0 })
-	discontinued: number;
 }

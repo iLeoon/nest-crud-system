@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateProductDto {
 	@IsNotEmpty()
@@ -13,8 +13,4 @@ export class CreateProductDto {
 	@IsNotEmpty()
 	@IsNumber()
 	units_in_stock: number;
-
-	@IsOptional()
-	@IsNumber()
-	discontinued?: number = 0;
 }

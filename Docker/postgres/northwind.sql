@@ -36,7 +36,7 @@ CREATE TABLE products (
     units_in_stock smallint,
     units_on_order smallint,
     reorder_level smallint,
-    discontinued integer NOT NULL
+    discontinued integer NOT NULL DEFAULT 0
 );
 
 
