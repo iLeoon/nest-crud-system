@@ -1,4 +1,4 @@
-FROM postgres:latest
+FROM postgres:16
 
 
 COPY ./northwind.sql /docker-entrypoint-initdb.d/
