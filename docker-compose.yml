@@ -28,3 +28,38 @@ services:
         - 27017:27017
     volumes:
         - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  nest:
+    build:
+      context: .
+      dockerfile: packages/nest/Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    env_file:
+      - ./packages/nest/.env
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: user
+      DATABASE_PASSWORD: admin
+      DATABASE_NAME: northwind
+      NEXT_API_URL: http://localhost:3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  next:
+    build:
+      context: .
+      dockerfile: packages/next/Dockerfile
+      args:
+        NEXT_PUBLIC_NEST_API_URL: http://localhost:3000
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    depends_on:
+      - nest
+
+volumes:
+  data:
