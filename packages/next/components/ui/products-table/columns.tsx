@@ -5,7 +5,7 @@ import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
 import { Product } from '@/utils/types';
 
-export const columns: ColumnDef<Product>[] = [
+export const getColumns = (isAdmin: boolean): ColumnDef<Product>[] => [
 	{
 		accessorKey: 'product_id',
 		header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
@@ -58,8 +58,14 @@ export const columns: ColumnDef<Product>[] = [
 			);
 		}
 	},
-	{
-		id: 'actions',
-		cell: ({ row }) => <DataTableRowActions data={row.original} />
-	}
+	...(isAdmin
+		? [
+				{
+					id: 'actions',
+					cell: ({ row }: { row: { original: Product } }) => (
+						<DataTableRowActions data={row.original} />
+					)
+				} as ColumnDef<Product>
+			]
+		: [])
 ];

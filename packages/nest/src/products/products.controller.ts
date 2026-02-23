@@ -23,7 +23,6 @@ import { UpdateProductDto } from './dtos/update-product.dto';
 @UseGuards(AuthenticatedGuard, ProductsGuard)
 export class ProductsController {
 	constructor(private productservice: ProductsService) {}
-	@Roles('admin')
 	@Get()
 	async getProducts() {
 		return await this.productservice.allProducts();
@@ -42,6 +41,7 @@ export class ProductsController {
 		await this.productservice.createProduct(productData);
 	}
 
+	@Roles('admin')
 	@Put('update/:id')
 	update(
 		@Param('id', ParseIntPipe) id: number,
@@ -50,6 +50,7 @@ export class ProductsController {
 		return this.productservice.updateProduct(id, productData);
 	}
 
+	@Roles('admin')
 	@Delete('delete/:id')
 	delete(@Param('id', ParseIntPipe) id: number) {
 		console.log(id);

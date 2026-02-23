@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import {
-	ColumnDef,
 	ColumnFiltersState,
 	SortingState,
 	VisibilityState,
@@ -28,13 +27,14 @@ import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import { useQuery } from '@tanstack/react-query';
 import { getProducts } from '@/utils/api/products/getProducts';
-import { Product } from '@/utils/types';
+import { getAuthUser } from '@/utils/api/users/getAuthUser';
+import { AuthUserType, Product } from '@/utils/types';
+import { getColumns } from './columns';
 
-interface DataTableProps<TValue> {
-	columns: ColumnDef<Product, TValue>[];
+interface DataTableProps {
 }
 
-export function DataTable<TValue>({ columns }: DataTableProps<TValue>) {
+export function DataTable({}: DataTableProps) {
 	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] =
 		React.useState<VisibilityState>({});
@@ -44,9 +44,18 @@ export function DataTable<TValue>({ columns }: DataTableProps<TValue>) {
 		queryKey: ['get-products'],
 		queryFn: async () => getProducts()
 	});
+	const { data: userData } = useQuery<AuthUserType>({
+		queryKey: ['get-userData'],
+		queryFn: async () => getAuthUser(),
+		refetchOnWindowFocus: false
+	});
+	const isAdmin = Array.isArray(userData?.roles)
+		? userData.roles.includes('admin')
+		: userData?.roles === 'admin';
+	const cols = getColumns(!!isAdmin);
 	const table = useReactTable({
 		data: isSuccess ? data : [],
-		columns,
+		columns: cols,
 		state: {
 			sorting,
 			columnVisibility,
@@ -108,7 +117,7 @@ export function DataTable<TValue>({ columns }: DataTableProps<TValue>) {
 						) : (
 							<TableRow>
 								<TableCell
-									colSpan={columns.length}
+									colSpan={cols.length}
 									className="h-24 text-center"
 								>
 									No results.

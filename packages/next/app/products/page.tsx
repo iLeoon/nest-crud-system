@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
 import { DataTable } from '@/components/ui/products-table/data-table';
-import { columns } from '@/components/ui/products-table/columns';
 
 export default async function Products() {
 	return (
@@ -13,7 +12,7 @@ export default async function Products() {
 						<h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
 					</div>
 				</div>
-				<DataTable columns={columns} />
+				<DataTable />
 			</div>
 		</>
 	);

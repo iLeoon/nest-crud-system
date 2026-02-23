@@ -50,4 +50,5 @@ export type AuthUserType = {
 	email?: string;
 	name?: string;
 	image?: string;
+	roles?: string | string[];
 };

@@ -62,9 +62,9 @@ export class UsersService {
 	async fetchUserData(user: User) {
 		if (user.image) {
 			const { imageUrl } = await this.uploadService.getImage(user);
-			return { email: user.email, name: user.name, image: imageUrl };
+			return { email: user.email, name: user.name, image: imageUrl, roles: user.roles };
 		}
-		return { email: user.email, name: user.name, image: null };
+		return { email: user.email, name: user.name, image: null, roles: user.roles };
 	}
 
 	async deleteUser(id: string) {
